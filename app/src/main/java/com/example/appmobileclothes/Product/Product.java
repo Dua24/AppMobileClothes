@@ -1,13 +1,13 @@
 package com.example.appmobileclothes.Product;
 
 public class Product {
-    private String product_id;
+    private int product_id;
     private String product_name;
     private String product_type;
     private String product_quantity;
     private double product_price;
 
-    public Product(String product_id, String product_name, String product_type, String product_quantity, double product_price) {
+    public Product(int product_id, String product_name, String product_type, String product_quantity, double product_price) {
         this.product_id = product_id;
         this.product_name = product_name;
         this.product_type = product_type;
@@ -15,11 +15,11 @@ public class Product {
         this.product_price = product_price;
     }
 
-    public String getProduct_id() {
+    public int getProduct_id() {
         return product_id;
     }
 
-    public void setProduct_id(String product_id) {
+    public void setProduct_id(int product_id) {
         this.product_id = product_id;
     }
 
