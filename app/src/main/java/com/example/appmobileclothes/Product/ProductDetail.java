@@ -1,4 +1,4 @@
-package com.example.appmobileclothes;
+package com.example.appmobileclothes.Product;
 
 import androidx.appcompat.app.AppCompatActivity;
 

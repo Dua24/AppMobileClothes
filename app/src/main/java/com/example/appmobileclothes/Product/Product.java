@@ -1,4 +1,4 @@
-package com.example.appmobileclothes;
+package com.example.appmobileclothes.Product;
 
 public class Product {
     private String product_id;
