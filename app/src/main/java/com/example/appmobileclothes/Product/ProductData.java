@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import com.example.appmobileclothes.R;
 
-public class ProductDetail extends AppCompatActivity {
+public class ProductData extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
