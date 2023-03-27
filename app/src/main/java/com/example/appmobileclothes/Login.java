@@ -8,15 +8,15 @@ import android.view.View;
 import android.widget.Button;
 
 public class Login extends AppCompatActivity {
-Button btn;
+Button btnLogin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
 
-        btn = findViewById(R.id.button);
-        btn.setOnClickListener(new View.OnClickListener() {
+        btnLogin = findViewById(R.id.loginButton);
+        btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getBaseContext(), MainActivity.class);
