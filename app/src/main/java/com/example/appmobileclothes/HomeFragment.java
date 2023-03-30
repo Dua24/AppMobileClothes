@@ -3,10 +3,15 @@ package com.example.appmobileclothes;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.appmobileclothes.Category.CategoryAdapter;
+import com.example.appmobileclothes.Category.CategoryData;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -56,9 +61,17 @@ public class HomeFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        View contentView = inflater.inflate(R.layout.fragment_home, container, false);
+
+        RecyclerView mRecyclerView = contentView.findViewById(R.id.recyclerview);
+        CategoryAdapter mWordListAdapter = new CategoryAdapter(contentView.getContext(), CategoryData.generatePhotoData());
+
+        mRecyclerView.setAdapter(mWordListAdapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(contentView.getContext(),LinearLayoutManager.HORIZONTAL,
+                false));
+
+        return contentView;
     }
 }
