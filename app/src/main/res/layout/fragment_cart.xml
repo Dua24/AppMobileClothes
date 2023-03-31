@@ -3,16 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CartFragment"
-    android:background="@color/light_gray">
+    android:background="@color/light_gray"
+    tools:context=".Cart.CartFragment">
 
     <ListView
         android:id="@+id/cartFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="64dp"
         android:background="@color/light_gray"
         android:divider="@null"
-        android:layout_marginBottom="86dp"/>
+        android:scrollbars="none"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,24 +24,38 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="end"
             android:orientation="horizontal"
-            android:padding="10dp">
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="7dp">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:text="Total"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
 
-                <Button
-                    android:id="@+id/btn_order"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:text="Order"
-                    android:textColor="@color/black"
-                    android:textSize="24sp" />
+            <TextView
+                android:id="@+id/tv_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:text="0đ"
+                android:textColor="@color/primary_color"
+                android:textSize="14dp"
+                android:textStyle="bold" />
 
-            </LinearLayout>
+            <Button
+                android:id="@+id/btn_checkout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Check Out"
+                android:letterSpacing="0"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
 
         </LinearLayout>
 

@@ -25,27 +25,65 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_marginLeft="10dp">
 
                 <TextView
                     android:id="@+id/tv_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:paddingVertical="10dp"
+                    android:paddingVertical="5dp"
                     android:text="Text"
                     android:textColor="@color/black"
-                    android:textSize="24sp" />
+                    android:textSize="16sp" />
 
-                <!--            <TextView-->
-                <!--                android:id="@+id/tv_price"-->
-                <!--                android:layout_width="wrap_content"-->
-                <!--                android:layout_height="wrap_content"-->
-                <!--                android:layout_marginLeft="10dp"-->
-                <!--                android:text="Text"-->
-                <!--                android:textColor="@color/primary_color"-->
-                <!--                android:textStyle="bold"-->
-                <!--                android:textSize="24sp" />-->
+                <TextView
+                    android:id="@+id/tv_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="0d"
+                    android:paddingVertical="5dp"
+                    android:textColor="@color/primary_color"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp">
+
+                    <Button
+                        android:id="@+id/btn_sub"
+                        android:layout_width="45dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        android:text="-"
+                        android:textAlignment="center"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_quantity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minWidth="50dp"
+                        android:layout_gravity="center"
+                        android:paddingHorizontal="4dp"
+                        android:text="1111"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="18dp" />
+
+                    <Button
+                        android:id="@+id/btn_add"
+                        android:layout_width="45dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+
+                        android:text="+"
+                        android:textAlignment="center"
+                        android:textSize="16sp" />
+                </LinearLayout>
 
             </LinearLayout>
 

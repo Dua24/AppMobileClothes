@@ -7,7 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 
-import com.example.appmobileclothes.Product.ViewProductActivity;
+import com.example.appmobileclothes.Cart.CartFragment;
 import com.example.appmobileclothes.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity{
