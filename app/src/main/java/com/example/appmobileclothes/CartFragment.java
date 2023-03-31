@@ -64,6 +64,7 @@ public class CartFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View contentView = inflater.inflate(R.layout.fragment_cart, container, false);
+        getActivity().setTitle("Cart");
         ListView listView = contentView.findViewById(R.id.cartFragment);
         new CartData(getContext(), listView).execute();
         return contentView;
