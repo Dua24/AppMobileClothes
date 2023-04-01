@@ -14,7 +14,7 @@
         android:theme="@style/Theme.AppMobileClothes"
         tools:targetApi="31">
         <activity
-            android:name=".OrderActivity"
+            android:name=".OrderDetailActivity"
             android:exported="false" />
         <activity
             android:name=".SlideActivity"

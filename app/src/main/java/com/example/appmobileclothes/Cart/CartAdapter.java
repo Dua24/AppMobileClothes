@@ -42,7 +42,7 @@ public class CartAdapter extends BaseAdapter {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if (convertView == null){
             dataitem = new MyView();
-            convertView = inflater.inflate(R.layout.cart_product, null);
+            convertView = inflater.inflate(R.layout.cart_item, null);
             dataitem.iv_photo = convertView.findViewById(R.id.iv_photo);
             dataitem.tv_caption = convertView.findViewById(R.id.tv_title);
             convertView.setTag(dataitem);
