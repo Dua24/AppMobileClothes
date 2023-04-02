@@ -20,6 +20,10 @@ public class Banner {
         this.img_name = img_name;
     }
 
+    public Banner() {
+
+    }
+
     public Banner(int id, String photo_source) {
         this.id = id;
         this.img_name = photo_source;
