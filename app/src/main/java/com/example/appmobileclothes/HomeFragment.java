@@ -1,17 +1,25 @@
 package com.example.appmobileclothes;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.appmobileclothes.Category.CategoryAdapter;
-import com.example.appmobileclothes.Category.CategoryData;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.CompositePageTransformer;
+import androidx.viewpager2.widget.MarginPageTransformer;
+import androidx.viewpager2.widget.ViewPager2;
+
+import com.example.appmobileclothes.Home.Banner;
+import com.example.appmobileclothes.Home.BannerAdapter;
+import com.example.appmobileclothes.Home.BannerData;
+import com.example.appmobileclothes.Home.CategoryAdapter;
+import com.example.appmobileclothes.Home.CategoryData;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -61,16 +69,37 @@ public class HomeFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View contentView = inflater.inflate(R.layout.fragment_home, container, false);
 
+        //RecyclerView for Categories
         RecyclerView mRecyclerView = contentView.findViewById(R.id.recyclerview);
-        CategoryAdapter mWordListAdapter = new CategoryAdapter(contentView.getContext(), CategoryData.generatePhotoData());
+        CategoryAdapter mCategoryListAdapter = new CategoryAdapter(contentView.getContext(), CategoryData.generatePhotoData());
 
-        mRecyclerView.setAdapter(mWordListAdapter);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(contentView.getContext(),LinearLayoutManager.HORIZONTAL,
-                false));
+        mRecyclerView.setAdapter(mCategoryListAdapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(contentView.getContext(), LinearLayoutManager.HORIZONTAL, false));
+
+        //ViewPager2 for Banners
+        ViewPager2 mViewPager2 = contentView.findViewById(R.id.viewPager);
+        ArrayList<Banner> mainBanners = new ArrayList<Banner>();
+        BannerAdapter mBannerListApdater = new BannerAdapter(contentView.getContext(), BannerData.generatePhotoData(), mViewPager2);
+        mViewPager2.setAdapter(mBannerListApdater);
+        mViewPager2.setClipToPadding(false);
+        mViewPager2.setClipChildren(false);
+        mViewPager2.setOffscreenPageLimit(3);
+        mViewPager2.getChildAt(0).setOverScrollMode(RecyclerView.OVER_SCROLL_NEVER);
+
+        CompositePageTransformer compositePageTransformer = new CompositePageTransformer();
+        compositePageTransformer.addTransformer(new MarginPageTransformer(40));
+        compositePageTransformer.addTransformer(new ViewPager2.PageTransformer() {
+            @Override
+            public void transformPage(@NonNull View page, float position) {
+                float r = 1 - Math.abs(position);
+                page.setScaleY(0.85f + r * 0.15f);
+            }
+        });
+        mViewPager2.setPageTransformer(compositePageTransformer);
 
         return contentView;
     }

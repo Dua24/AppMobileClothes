@@ -1,7 +1,6 @@
-package com.example.appmobileclothes.Category;
+package com.example.appmobileclothes.Home;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -10,13 +9,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appmobileclothes.R;
 
-import java.io.Serializable;
-
-public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+public class CategoryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     private CategoryAdapter categoryAdapter;
+    private Context mainActivity;
     private TextView tv_CategoryName;
     private ImageView iv_Image;
-    private Context mainActivity;
     private int id;
 
     public int getId() {
@@ -43,7 +40,7 @@ public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickL
         this.iv_Image = iv_Image;
     }
 
-    public ViewHolder(View itemView, CategoryAdapter categoryAdapter, Context mainActivity) {
+    public CategoryViewHolder(View itemView, CategoryAdapter categoryAdapter, Context mainActivity) {
         super(itemView);
 
         tv_CategoryName = itemView.findViewById(R.id.tv_CategoryName);

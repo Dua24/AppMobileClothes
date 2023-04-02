@@ -1,4 +1,4 @@
-package com.example.appmobileclothes.Category;
+package com.example.appmobileclothes.Home;
 
 public class Category {
     private int id;

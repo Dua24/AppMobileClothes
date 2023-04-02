@@ -1,4 +1,4 @@
-package com.example.appmobileclothes.Category;
+package com.example.appmobileclothes.Home;
 
 import java.util.ArrayList;
 
@@ -14,14 +14,5 @@ public class CategoryData {
         categories.add(new Category(6, "https://cdn-icons-png.flaticon.com/512/4488/4488094.png", "Accessories"));
 
         return categories;
-    }
-    public static Category getPhotoFromId(int id){
-        ArrayList<Category> categories = generatePhotoData();
-        for (int i = 0; i < categories.size(); i++) {
-            if (categories.get(i).getId() == id) {
-                return categories.get(i);
-            }
-        }
-        return null;
     }
 }

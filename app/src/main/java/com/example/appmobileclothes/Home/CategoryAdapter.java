@@ -1,4 +1,4 @@
-package com.example.appmobileclothes.Category;
+package com.example.appmobileclothes.Home;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,7 +12,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class CategoryAdapter extends RecyclerView.Adapter<ViewHolder> {
+public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
 
     private ArrayList<Category> categories;
     private final LayoutInflater mInfalter;
@@ -26,17 +26,16 @@ public class CategoryAdapter extends RecyclerView.Adapter<ViewHolder> {
 
     // Create new views (invoked by the layout manager)
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+    public CategoryViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         // Create a new view, which defines the UI of the list item
         View mItemView = mInfalter.inflate(R.layout.category_item, viewGroup, false);
-        return new ViewHolder(mItemView, this, context);
+        return new CategoryViewHolder(mItemView, this, context);
     }
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, int position) {
-        // Get element from your dataset at this position and replace the
-        // contents of the view with that element
+    public void onBindViewHolder(CategoryViewHolder viewHolder, int position) {
+        // Get element from your dataset at this position and replace the contents of the view with that element
         Category mCurrent = categories.get(position);
         viewHolder.setId(mCurrent.getId());
         viewHolder.getTv_CategoryName().setText(mCurrent.getCategory_name());
