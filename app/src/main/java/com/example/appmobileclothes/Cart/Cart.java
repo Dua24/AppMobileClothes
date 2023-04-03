@@ -20,6 +20,9 @@ public class Cart {
     @Expose
     private String article_description;
 
+    public Cart() {
+    }
+
     public Cart(int article_id, String article_title, String article_image, String article_description) {
         this.article_id = article_id;
         this.article_title = article_title;

@@ -19,7 +19,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/white">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -27,7 +28,6 @@
             android:layout_marginHorizontal="10dp"
             android:layout_marginVertical="7dp"
             android:layout_weight="1"
-            android:background="@drawable/rounded_orange_corner"
             android:orientation="vertical"
             android:paddingHorizontal="12dp"
             android:paddingVertical="7dp">
@@ -144,7 +144,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
             android:paddingHorizontal="50dp"
             android:paddingVertical="2dp">
 
@@ -154,6 +153,9 @@
                 android:layout_height="wrap_content"
                 android:letterSpacing="0"
                 android:text="Check Out"
+                android:background="@drawable/rounded_button"
+                android:paddingHorizontal="50dp"
+                android:paddingVertical="2dp"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
         </LinearLayout>

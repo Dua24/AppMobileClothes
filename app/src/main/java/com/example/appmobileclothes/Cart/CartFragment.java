@@ -2,6 +2,7 @@ package com.example.appmobileclothes.Cart;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -10,6 +11,13 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.example.appmobileclothes.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -58,14 +66,40 @@ public class CartFragment extends Fragment {
         }
     }
 
+    FirebaseDatabase database;
+    DatabaseReference dbRef;
+    ArrayList<Cart> banners;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View contentView = inflater.inflate(R.layout.fragment_cart, container, false);
-        getActivity().setTitle("Cart");
         ListView listView = contentView.findViewById(R.id.cartFragment);
-        new CartData(getContext(), listView).execute();
+
+        database = FirebaseDatabase.getInstance();
+        dbRef = database.getReference("Product");
+        banners = new ArrayList<>();
+
+        CartAdapter adapter = new CartAdapter(banners, contentView.getContext());
+        listView.setAdapter(adapter);
+
+        dbRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    Cart banner = dataSnapshot.getValue(Cart.class);
+                    banners.add(banner);
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         return contentView;
     }
 }

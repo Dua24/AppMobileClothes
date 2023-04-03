@@ -1,6 +1,7 @@
 package com.example.appmobileclothes.Cart;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,7 +9,13 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+
 import com.example.appmobileclothes.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -50,7 +57,21 @@ public class CartAdapter extends BaseAdapter {
         else{
             dataitem = (MyView) convertView.getTag();
         }
-        Picasso.get().load(photo_list.get(position).getArticle_image()).resize(300,400).centerCrop().into(dataitem.iv_photo);
+
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReference("banner-img");
+        storageRef.child(photo_list.get(position).getArticle_image()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Picasso.get().load(uri.toString()).resize(300,400).centerCrop().into(dataitem.iv_photo);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                notifyDataSetChanged();
+            }
+        });
+
         dataitem.tv_caption.setText(photo_list.get(position).getArticle_title());
         return convertView;
     }
