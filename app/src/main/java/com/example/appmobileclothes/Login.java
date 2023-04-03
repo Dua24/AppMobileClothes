@@ -17,11 +17,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-
 public class Login extends AppCompatActivity {
 Button btnLogin;
-TextView register,username,password;
+TextView register,email,password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +27,8 @@ TextView register,username,password;
         setContentView(R.layout.activity_login);
         DatabaseReference userRef;
 
-        register = findViewById(R.id.signupText);
-        username = findViewById(R.id.username);
+        register = findViewById(R.id.signinText);
+        email = findViewById(R.id.email);
         password = findViewById(R.id.password);
         btnLogin = findViewById(R.id.loginButton);
         userRef = FirebaseDatabase.getInstance().getReference("Users");
@@ -43,20 +41,18 @@ TextView register,username,password;
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                             Users user = dataSnapshot.getValue(Users.class);
-                            Log.d("usernameInput",username.getText().toString());
-                            Log.d("passwordInput",password.getText().toString());
-                            Log.d("username",user.getName());
-                            Log.d("password",user.getPassword());
-                            Log.d("compare",String.valueOf(username.getText().toString()==user.getName()));
-                            if(username.getText().toString().equals(user.getName())  ){
+                            if(email.getText().toString().equals(user.getEmail())){
                                 if( password.getText().toString().equals(user.getPassword())){
                                     Intent intent = new Intent(getBaseContext(), MainActivity.class);
+                                    intent.putExtra("id",user.getId());
+                                    intent.putExtra("username",user.getName());
+                                    intent.putExtra("email",user.getEmail());
                                     startActivity(intent);
                                     return;
                                 }else{
                                     Toast.makeText(Login.this,"Sign in failed !!!!!",Toast.LENGTH_LONG).show();
+                                    break;
                                 }
-
                             }
 
                         }

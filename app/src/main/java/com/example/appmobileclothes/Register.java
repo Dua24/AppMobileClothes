@@ -17,7 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class Register extends AppCompatActivity {
     Button registerBtn;
-    TextView username,password;
+    TextView email,username,password,signIn;
     private DatabaseReference userRef;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +25,10 @@ public class Register extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         registerBtn = findViewById(R.id.RegisterBtn);
+        email = findViewById(R.id.email);
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
+        signIn = findViewById(R.id.signinText);
         userRef = FirebaseDatabase.getInstance().getReference().child("Users");
 
         registerBtn.setOnClickListener(new View.OnClickListener() {
@@ -34,7 +36,7 @@ public class Register extends AppCompatActivity {
             public void onClick(View view) {
 
                 String key=userRef.push().getKey();
-                Users us = new Users(key,username.getText().toString(),password.getText().toString());
+                Users us = new Users(key,username.getText().toString(),email.getText().toString(),password.getText().toString());
 
                 userRef.child(key).setValue(us).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -49,7 +51,7 @@ public class Register extends AppCompatActivity {
                 });
 
 
-                Intent intent = new Intent(getBaseContext(), MainActivity.class);
+                Intent intent = new Intent(getBaseContext(), Login.class);
                 startActivity(intent);
 
 
@@ -57,5 +59,12 @@ public class Register extends AppCompatActivity {
             }
         });
 
+        signIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext(), Login.class);
+                startActivity(intent);
+            }
+        });
     }
 }

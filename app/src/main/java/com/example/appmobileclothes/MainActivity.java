@@ -32,7 +32,16 @@ public class MainActivity extends AppCompatActivity{
                     replaceFragment(new CartFragment());
                     break;
                 case R.id.profile:
-                    replaceFragment(new ProfileFragment());
+                    ProfileFragment fragment_profile = new ProfileFragment();
+                    Bundle args = new Bundle();
+                    args.putString("id", getIntent().getStringExtra("id"));
+                    args.putString("username", getIntent().getStringExtra("username"));
+                    args.putString("email", getIntent().getStringExtra("email"));
+                    fragment_profile.setArguments(args);
+
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.frame_layout, fragment_profile)
+                            .commit();
                     break;
                 case R.id.order:
                     replaceFragment(new OrderFragment());
