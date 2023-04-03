@@ -15,16 +15,11 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.appmobileclothes.Home.Banner;
 import com.example.appmobileclothes.Home.BannerAdapter;
-import com.example.appmobileclothes.Home.BannerData;
 import com.example.appmobileclothes.Home.CategoryAdapter;
 import com.example.appmobileclothes.Home.CategoryData;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -76,7 +71,7 @@ public class HomeFragment extends Fragment {
 
     FirebaseDatabase database;
     DatabaseReference dbRef;
-    ArrayList<Banner> banners;
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -92,29 +87,11 @@ public class HomeFragment extends Fragment {
 
         //ViewPager2 for Banners
         ViewPager2 mViewPager2 = contentView.findViewById(R.id.viewPager);
-        database = FirebaseDatabase.getInstance();
-        dbRef = database.getReference("Banners");
-        banners = new ArrayList<>();
-
-
+        ArrayList<Banner> banners = new ArrayList<>();
         BannerAdapter mBannerListApdater = new BannerAdapter(contentView.getContext(), banners, mViewPager2);
         mViewPager2.setAdapter(mBannerListApdater);
 
-        dbRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    Banner banner = dataSnapshot.getValue(Banner.class);
-                    banners.add(banner);
-                }
-                mBannerListApdater.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+        FirebaseDb.loadDataIntoView("Banners", Banner.class, banners, mBannerListApdater);
 
         mViewPager2.setClipToPadding(false);
         mViewPager2.setClipChildren(false);
