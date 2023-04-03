@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.appmobileclothes.R;
+import com.example.appmobileclothes.Storage;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -46,19 +47,7 @@ public class BannerAdapter extends RecyclerView.Adapter<BannerViewHolder> {
         // Get element from your dataset at this position and replace the contents of the view with that element
         Banner mCurrent = banners.get(position);
         viewHolder.setId(mCurrent.getId());
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference storageRef = storage.getReference("banner-img");
-        storageRef.child(mCurrent.getImg_name()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Picasso.get().load(uri.toString()).into(viewHolder.getImageView());
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                notifyDataSetChanged();
-            }
-        });
+        Storage.loadImageIntoImageView("banner-img", mCurrent.getImg_name(), viewHolder.getImageView());
     }
 
     // Return the size of your dataset (invoked by the layout manager)
