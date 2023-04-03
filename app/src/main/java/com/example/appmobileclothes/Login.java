@@ -35,34 +35,46 @@ TextView register,email,password;
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Validate validator = new Validate();
+                if (email.getText().toString().length()>0 && validator.isValidEmail(email.getText().toString())) {
+                    if(validator.isValidInfo(password.getText().toString())){
+                        userRef.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                    Users user = dataSnapshot.getValue(Users.class);
+                                    if(email.getText().toString().equals(user.getEmail())){
+                                        if( password.getText().toString().equals(user.getPassword())){
+                                            Intent intent = new Intent(getBaseContext(), MainActivity.class);
+                                            intent.putExtra("id",user.getId());
+                                            intent.putExtra("username",user.getName());
+                                            intent.putExtra("email",user.getEmail());
+                                            startActivity(intent);
+                                            Toast.makeText(Login.this,"Hello "+ user.getName() ,Toast.LENGTH_LONG).show();
+                                            return;
+                                        }else{
+                                            Toast.makeText(Login.this,"Incorrect password",Toast.LENGTH_LONG).show();
+                                            break;
+                                        }
+                                    }
 
-                userRef.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                            Users user = dataSnapshot.getValue(Users.class);
-                            if(email.getText().toString().equals(user.getEmail())){
-                                if( password.getText().toString().equals(user.getPassword())){
-                                    Intent intent = new Intent(getBaseContext(), MainActivity.class);
-                                    intent.putExtra("id",user.getId());
-                                    intent.putExtra("username",user.getName());
-                                    intent.putExtra("email",user.getEmail());
-                                    startActivity(intent);
-                                    return;
-                                }else{
-                                    Toast.makeText(Login.this,"Sign in failed !!!!!",Toast.LENGTH_LONG).show();
-                                    break;
                                 }
                             }
 
-                        }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+                    }else{
+                        Toast.makeText(Login.this,"Minimum password length of 6 characters required",Toast.LENGTH_LONG).show();
+
                     }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
+                } else {
+                    Toast.makeText(Login.this,"Invalid email",Toast.LENGTH_LONG).show();
+                }
 
-                    }
-                });
 
 
             }

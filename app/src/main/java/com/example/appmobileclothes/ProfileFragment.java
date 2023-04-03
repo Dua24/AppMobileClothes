@@ -104,6 +104,7 @@ public class ProfileFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     userRef.child(id).child("name").setValue(editUsername.getText().toString());
+                    Toast.makeText(getContext(),"Update info successfully",Toast.LENGTH_LONG).show();
                 }
             });
         }
