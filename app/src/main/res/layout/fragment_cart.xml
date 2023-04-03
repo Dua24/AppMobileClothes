@@ -6,30 +6,52 @@
     android:background="@color/light_gray"
     tools:context=".Cart.CartFragment">
 
-    <ListView
-        android:id="@+id/cartFragment"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="155dp"
-        android:background="@color/light_gray"
-        android:divider="@null"
-        android:scrollbars="none" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:background="@color/white"
+            android:paddingVertical="5dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cart"
+                android:fontFamily="@font/sf_pro_rounded_bold"
+                android:textSize="20sp"
+                android:textColor="@color/primary_color"/>
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/cartFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="190dp"
+            android:background="@color/light_gray"
+            android:divider="@null"
+            android:scrollbars="none" />
+
+
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:orientation="vertical"
-        android:background="@color/white">
+        android:background="@color/white"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
-            android:layout_marginVertical="7dp"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:paddingHorizontal="12dp"
+            android:paddingHorizontal="10dp"
             android:paddingVertical="7dp">
 
             <LinearLayout
@@ -41,14 +63,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
-                    android:text="Item Total"
-                    android:textColor="@color/black"
+                    android:fontFamily="@font/sf_pro_rounded_semibold"
+                    android:text="Sub Total"
                     android:textSize="13sp" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
+                    android:fontFamily="@font/sf_pro_rounded_semibold"
                     android:gravity="end"
                     android:text="500000d"
                     android:textColor="@color/black"
@@ -66,14 +89,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
-                    android:text="Delivery service"
-                    android:textColor="@color/black"
+                    android:fontFamily="@font/sf_pro_rounded_semibold"
+                    android:text="Shipping"
                     android:textSize="13sp" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
+                    android:fontFamily="@font/sf_pro_rounded_semibold"
                     android:gravity="end"
                     android:text="523d"
                     android:textColor="@color/black"
@@ -91,27 +115,29 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
+                    android:fontFamily="@font/sf_pro_rounded_semibold"
                     android:text="Discount"
-                    android:textColor="@color/black"
                     android:textSize="13sp" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
+                    android:fontFamily="@font/sf_pro_rounded_semibold"
                     android:gravity="end"
                     android:text="0%"
                     android:textColor="@color/black"
-                    android:textSize="13sp"/>
+                    android:textSize="13sp" />
 
 
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#9A9A9A"
+                android:layout_height="3dp"
                 android:layout_marginHorizontal="10dp"
-                android:layout_marginVertical="2dp"/>
+                android:layout_marginVertical="2dp"
+                android:background="@drawable/line_stroke" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -122,20 +148,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
+                    android:fontFamily="@font/sf_pro_rounded_semibold"
                     android:text="Total"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:textStyle="bold"/>
+
+                    android:textSize="16sp" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
-                    android:text="Total"
+                    android:fontFamily="@font/sf_pro_rounded_semibold"
                     android:gravity="end"
+                    android:text="Total"
                     android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:textStyle="bold"/>
+                    android:textSize="16sp" />
 
 
             </LinearLayout>
@@ -145,19 +171,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingHorizontal="50dp"
-            android:paddingVertical="2dp">
+            android:paddingBottom="5dp">
 
             <Button
                 android:id="@+id/btn_checkout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:letterSpacing="0"
-                android:text="Check Out"
                 android:background="@drawable/rounded_button"
+                android:letterSpacing="0"
                 android:paddingHorizontal="50dp"
                 android:paddingVertical="2dp"
+                android:text="Checkout"
+                android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
         </LinearLayout>
 
 
