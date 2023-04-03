@@ -1,23 +1,9 @@
 package com.example.appmobileclothes.Cart;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
 public class Cart {
-    @SerializedName("article_id")
-    @Expose
     private int article_id;
-
-    @SerializedName("article_title")
-    @Expose
     private String article_title;
-
-    @SerializedName("article_image")
-    @Expose
     private String article_image;
-
-    @SerializedName("article_description")
-    @Expose
     private String article_description;
 
     public Cart() {

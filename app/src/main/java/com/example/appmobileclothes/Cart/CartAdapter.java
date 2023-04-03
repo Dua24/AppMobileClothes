@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.example.appmobileclothes.R;
+import com.example.appmobileclothes.Storage;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -58,19 +59,21 @@ public class CartAdapter extends BaseAdapter {
             dataitem = (MyView) convertView.getTag();
         }
 
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference storageRef = storage.getReference("banner-img");
-        storageRef.child(photo_list.get(position).getArticle_image()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Picasso.get().load(uri.toString()).resize(300,400).centerCrop().into(dataitem.iv_photo);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                notifyDataSetChanged();
-            }
-        });
+        Storage.loadImageIntoImageView("banner-img", photo_list.get(position).getArticle_image(), dataitem.iv_photo, 300, 400);
+
+//        FirebaseStorage storage = FirebaseStorage.getInstance();
+//        StorageReference storageRef = storage.getReference("banner-img");
+//        storageRef.child(photo_list.get(position).getArticle_image()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+//            @Override
+//            public void onSuccess(Uri uri) {
+//                Picasso.get().load(uri.toString()).resize(300,400).centerCrop().into(dataitem.iv_photo);
+//            }
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception exception) {
+//                notifyDataSetChanged();
+//            }
+//        });
 
         dataitem.tv_caption.setText(photo_list.get(position).getArticle_title());
         return convertView;
