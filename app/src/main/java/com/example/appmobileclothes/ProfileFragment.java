@@ -93,35 +93,22 @@ public class ProfileFragment extends Fragment {
             email.setText(emailUser);
             editEmail.setText(emailUser);
             editUsername.setText(nameUser);
+            logoutBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getContext(), Login.class);
+                    startActivity(intent);
+                }
+            });
+            saveInfo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    userRef.child(id).child("name").setValue(editUsername.getText().toString());
+                }
+            });
         }
 
-        logoutBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext(), Login.class);
-                startActivity(intent);
-            }
-        });
-        saveInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                userRef.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                            Users user = dataSnapshot.getValue(Users.class);
 
-
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-            }
-        });
         // Inflate the layout for this fragment
         return view;
     }
