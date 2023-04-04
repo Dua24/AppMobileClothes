@@ -1,57 +1,80 @@
 package com.example.appmobileclothes.Product;
 
 public class Product {
-    private int product_id;
-    private String product_name;
-    private String product_type;
-    private String product_quantity;
-    private double product_price;
+    private int id;
+    private String name;
+    private String gender;
+    private int quantity;
+    private int price;
+    private String image;
+    private int category;
 
-    public Product(int product_id, String product_name, String product_type, String product_quantity, double product_price) {
-        this.product_id = product_id;
-        this.product_name = product_name;
-        this.product_type = product_type;
-        this.product_quantity = product_quantity;
-        this.product_price = product_price;
+    public Product() {
     }
 
-    public int getProduct_id() {
-        return product_id;
+    public Product(int id, String name, String gender, int quantity, int price, String image, int category) {
+        this.id = id;
+        this.name = name;
+        this.gender = gender;
+        this.quantity = quantity;
+        this.price = price;
+        this.image = image;
+        this.category = category;
     }
 
-    public void setProduct_id(int product_id) {
-        this.product_id = product_id;
+    public int getId() {
+        return id;
     }
 
-    public String getProduct_name() {
-        return product_name;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setProduct_name(String product_name) {
-        this.product_name = product_name;
+    public String getName() {
+        return name;
     }
 
-    public String getProduct_type() {
-        return product_type;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setProduct_type(String product_type) {
-        this.product_type = product_type;
+    public String getGender() {
+        return gender;
     }
 
-    public String getProduct_quantity() {
-        return product_quantity;
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
-    public void setProduct_quantity(String product_quantity) {
-        this.product_quantity = product_quantity;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public double getProduct_price() {
-        return product_price;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
-    public void setProduct_price(double product_price) {
-        this.product_price = product_price;
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public int getCategory() {
+        return category;
+    }
+
+    public void setCategory(int category) {
+        this.category = category;
     }
 }

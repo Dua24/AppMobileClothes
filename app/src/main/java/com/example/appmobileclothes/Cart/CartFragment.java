@@ -3,6 +3,7 @@ package com.example.appmobileclothes.Cart;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,12 +67,12 @@ public class CartFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View contentView = inflater.inflate(R.layout.fragment_cart, container, false);
-        ListView listView = contentView.findViewById(R.id.cartFragment);
+        RecyclerView recyclerView = contentView.findViewById(R.id.cartFragment);
 
         ArrayList<Cart> products = new ArrayList<>();
         CartAdapter adapter = new CartAdapter(products, contentView.getContext());
-        listView.setAdapter(adapter);
-        FirebaseDb.loadDataIntoView("Product", Cart.class, products, adapter);
+        recyclerView.setAdapter(adapter);
+        FirebaseDb.loadDataIntoView("Cart", Cart.class, products, adapter);
 
         return contentView;
     }

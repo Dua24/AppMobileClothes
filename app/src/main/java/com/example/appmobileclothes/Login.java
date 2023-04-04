@@ -25,13 +25,12 @@ TextView register,email,password;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        DatabaseReference userRef;
 
         register = findViewById(R.id.signinText);
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
         btnLogin = findViewById(R.id.loginButton);
-        userRef = FirebaseDatabase.getInstance().getReference("Users");
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Users");
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

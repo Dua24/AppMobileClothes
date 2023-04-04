@@ -22,7 +22,7 @@ public class ProductAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return product_list.get(position).getProduct_id();
+        return product_list.get(position).getId();
     }
 
     @Override

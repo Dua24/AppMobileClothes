@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.appmobileclothes.Product.Product;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -40,27 +41,8 @@ public class FirebaseDb {
         });
     }
 
-    public static <T> void loadDataIntoView(String reference, Class<T> dataClass, ArrayList<T> dataList, BaseAdapter baseAdapter) {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference dbRef = database.getReference(reference);
-
-        dbRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                dataList.clear();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    T data = dataSnapshot.getValue(dataClass);
-                    dataList.add(data);
-                }
-                if (baseAdapter != null) {
-                    baseAdapter.notifyDataSetChanged();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.w(TAG, "loadPost:onCancelled", error.toException());
-            }
-        });
+    public static ArrayList<Product> fetchData(){
+        ArrayList<Product> products = new ArrayList<Product>();
+        return products;
     }
 }
