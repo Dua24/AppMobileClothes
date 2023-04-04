@@ -46,7 +46,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="45dp"
         android:gravity="center"
-        android:text="Mieu ta buc hinh 1 ne"
+        android:text="Online buying and selling through the internet."
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title" />
@@ -58,14 +58,15 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
+        android:background="@color/primary_color"
         android:text="Get Started"
         android:textAllCaps="false"
         android:textColor="@color/black"
         android:textSize="34sp"
-        android:background="@color/primary_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:background="@drawable/rounded_button" />
 
     <ImageView
         android:id="@+id/ind1"

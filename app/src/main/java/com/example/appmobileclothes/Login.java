@@ -50,7 +50,6 @@ TextView register,email,password;
                                             intent.putExtra("username",user.getName());
                                             intent.putExtra("email",user.getEmail());
                                             startActivity(intent);
-                                            Toast.makeText(Login.this,"Hello "+ user.getName() ,Toast.LENGTH_LONG).show();
                                             return;
                                         }else{
                                             Toast.makeText(Login.this,"Incorrect password",Toast.LENGTH_LONG).show();
