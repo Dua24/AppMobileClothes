@@ -81,8 +81,8 @@ public class SlideViewPagerAdapter extends PagerAdapter {
                 ind2.setImageResource(R.drawable.unselected);
                 ind3.setImageResource(R.drawable.unselected);
 
-                title.setText("Tam hinh 111");
-                desc.setText("Mieu ta buc hinh 11111111111111 1ne");
+                title.setText("Welcome to our app");
+                desc.setText("Online buying and selling through the internet");
                 back.setVisibility(View.GONE);
                 next.setVisibility(View.VISIBLE);
                 break;
@@ -92,8 +92,8 @@ public class SlideViewPagerAdapter extends PagerAdapter {
                 ind2.setImageResource(R.drawable.seleted);
                 ind3.setImageResource(R.drawable.unselected);
 
-                title.setText("Tam hinh 22");
-                desc.setText("Mieu ta buc hinh 2222222222 ne");
+                title.setText("See some intro...");
+                desc.setText("Expand your business reach and operate non-stop");
                 back.setVisibility(View.VISIBLE);
                 next.setVisibility(View.VISIBLE);
                 break;
@@ -103,8 +103,8 @@ public class SlideViewPagerAdapter extends PagerAdapter {
                 ind2.setImageResource(R.drawable.unselected);
                 ind3.setImageResource(R.drawable.seleted);
 
-                title.setText("Tam hinh 333");
-                desc.setText("Mieu ta buc hinh 3333333 ne");
+                title.setText("Are you ready?");
+                desc.setText("Convenient shopping with easy payment and delivery");
                 back.setVisibility(View.VISIBLE);
                 next.setVisibility(View.GONE);
                 break;
