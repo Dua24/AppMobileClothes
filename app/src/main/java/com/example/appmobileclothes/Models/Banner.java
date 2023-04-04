@@ -1,4 +1,4 @@
-package com.example.appmobileclothes.Home;
+package com.example.appmobileclothes.Models;
 
 public class Banner {
     private int id;

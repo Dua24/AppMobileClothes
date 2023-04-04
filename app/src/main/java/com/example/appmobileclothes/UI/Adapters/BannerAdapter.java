@@ -1,7 +1,6 @@
-package com.example.appmobileclothes.Home;
+package com.example.appmobileclothes.UI.Adapters;
 
 import android.content.Context;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,13 +9,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.example.appmobileclothes.Models.Banner;
 import com.example.appmobileclothes.R;
-import com.example.appmobileclothes.Storage;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.squareup.picasso.Picasso;
+import com.example.appmobileclothes.Utilities.StorageUtils;
 
 import java.util.ArrayList;
 
@@ -26,11 +21,16 @@ public class BannerAdapter extends RecyclerView.Adapter<BannerViewHolder> {
     private ViewPager2 viewPager2;
     private Context context;
 
-    public BannerAdapter(Context context, ArrayList<Banner> banners, ViewPager2 viewPager2) {
+    public BannerAdapter(Context context, ViewPager2 viewPager2) {
         mInfalter = LayoutInflater.from(context);
-        this.banners = banners;
+        this.banners = new ArrayList<Banner>();
         this.context = context;
         this.viewPager2 = viewPager2;
+    }
+
+    public void setBanners(ArrayList<Banner> banners){
+        this.banners = banners;
+        notifyDataSetChanged();
     }
 
     // Create new views (invoked by the layout manager)
@@ -47,7 +47,7 @@ public class BannerAdapter extends RecyclerView.Adapter<BannerViewHolder> {
         // Get element from your dataset at this position and replace the contents of the view with that element
         Banner mCurrent = banners.get(position);
         viewHolder.setId(mCurrent.getId());
-        Storage.loadImageIntoImageView("banner-img", mCurrent.getImg_name(), viewHolder.getImageView());
+        StorageUtils.loadStorageImageIntoImageView("banner-img", mCurrent.getImg_name(), viewHolder.getImageView());
     }
 
     // Return the size of your dataset (invoked by the layout manager)

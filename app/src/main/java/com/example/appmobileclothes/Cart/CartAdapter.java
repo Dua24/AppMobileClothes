@@ -9,13 +9,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appmobileclothes.Controllers.ProductDAL;
-import com.example.appmobileclothes.Home.Category;
 import com.example.appmobileclothes.Product.Product;
 import com.example.appmobileclothes.R;
-import com.example.appmobileclothes.Storage;
+import com.example.appmobileclothes.Utilities.StorageUtils;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -54,7 +52,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
         holder.getTv_price().setText(product.getPrice());
         holder.getTv_quantity().setText(product.getQuantity());
 
-        Storage.loadImageIntoImageView("product-img", product.getImage(), holder.getIv_image());
+        StorageUtils.loadStorageImageIntoImageView("product-img", product.getImage(), holder.getIv_image());
 
     }
 

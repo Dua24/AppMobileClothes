@@ -1,4 +1,4 @@
-package com.example.appmobileclothes.Home;
+package com.example.appmobileclothes.UI.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,7 +7,10 @@ import android.view.ViewGroup;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.appmobileclothes.Models.Banner;
+import com.example.appmobileclothes.Models.Category;
 import com.example.appmobileclothes.R;
+import com.example.appmobileclothes.Utilities.StorageUtils;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -18,10 +21,15 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
     private final LayoutInflater mInfalter;
     private Context context;
 
-    public CategoryAdapter(Context context, ArrayList<Category> categories) {
+    public CategoryAdapter(Context context) {
         mInfalter = LayoutInflater.from(context);
-        this.categories = categories;
+        this.categories = new ArrayList<Category>();
         this.context = context;
+    }
+
+    public void setCategories(ArrayList<Category> categories){
+        this.categories = categories;
+        notifyDataSetChanged();
     }
 
     // Create new views (invoked by the layout manager)
@@ -38,8 +46,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
         // Get element from your dataset at this position and replace the contents of the view with that element
         Category mCurrent = categories.get(position);
         viewHolder.setId(mCurrent.getId());
-        viewHolder.getTv_CategoryName().setText(mCurrent.getCategory_name());
-        Picasso.get().load(mCurrent.getSource_photo()).into(viewHolder.getIv_Image());
+        viewHolder.getTv_CategoryName().setText(mCurrent.getName());
+        StorageUtils.loadStorageImageIntoImageView("category-img", mCurrent.getImg_name(), viewHolder.getIv_Image());
     }
 
     // Return the size of your dataset (invoked by the layout manager)

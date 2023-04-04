@@ -8,12 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.appmobileclothes.Home.CategoryAdapter;
 import com.example.appmobileclothes.R;
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
-import java.util.ArrayList;
 
 public class CartViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     private CartAdapter cartAdapter;

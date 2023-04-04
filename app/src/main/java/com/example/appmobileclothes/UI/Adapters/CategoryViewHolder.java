@@ -1,4 +1,4 @@
-package com.example.appmobileclothes.Home;
+package com.example.appmobileclothes.UI.Adapters;
 
 import android.content.Context;
 import android.view.View;
