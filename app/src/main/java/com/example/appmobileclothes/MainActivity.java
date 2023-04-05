@@ -9,10 +9,10 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.appmobileclothes.Cart.CartFragment;
 import com.example.appmobileclothes.Order.OrderFragment;
+import com.example.appmobileclothes.UI.Framents.HomeFragment;
 import com.example.appmobileclothes.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
-
     ActivityMainBinding binding;
 
     @Override
@@ -21,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         replaceFragment(new HomeFragment());
-
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()) {

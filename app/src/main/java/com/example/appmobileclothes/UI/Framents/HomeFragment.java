@@ -1,27 +1,24 @@
-package com.example.appmobileclothes;
+package com.example.appmobileclothes.UI.Framents;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.example.appmobileclothes.Home.Banner;
-import com.example.appmobileclothes.Home.BannerAdapter;
-import com.example.appmobileclothes.Home.CategoryAdapter;
-import com.example.appmobileclothes.Home.CategoryData;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.ArrayList;
+import com.example.appmobileclothes.UI.Adapters.CategoryAdapter;
+import com.example.appmobileclothes.R;
+import com.example.appmobileclothes.UI.Adapters.BannerAdapter;
+import com.example.appmobileclothes.ViewModels.BannerViewModel;
+import com.example.appmobileclothes.ViewModels.CategoryViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -71,9 +68,8 @@ public class HomeFragment extends Fragment {
 
     }
 
-    FirebaseDatabase database;
-    DatabaseReference dbRef;
-
+    private BannerViewModel bannerViewModel;
+    private CategoryViewModel categoryViewModel;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -82,24 +78,36 @@ public class HomeFragment extends Fragment {
 
         //RecyclerView for Categories
         RecyclerView mRecyclerView = contentView.findViewById(R.id.recyclerview);
-        CategoryAdapter mCategoryListAdapter = new CategoryAdapter(contentView.getContext(), CategoryData.generatePhotoData());
-
-        mRecyclerView.setAdapter(mCategoryListAdapter);
+        CategoryAdapter categoryAdapter = new CategoryAdapter(contentView.getContext());
+        mRecyclerView.setAdapter(categoryAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(contentView.getContext(), LinearLayoutManager.HORIZONTAL, false));
+
+        //Retrieve data for ViewPager2
+        categoryViewModel = new ViewModelProvider(this).get(CategoryViewModel.class);
+        categoryViewModel.getCategoriesLiveData().observe(getViewLifecycleOwner(), categories -> {
+            if (categories != null){
+                categoryAdapter.setCategories(categories);
+            }
+        });
 
         //ViewPager2 for Banners
         ViewPager2 mViewPager2 = contentView.findViewById(R.id.viewPager);
-        ArrayList<Banner> banners = new ArrayList<>();
-        BannerAdapter mBannerListApdater = new BannerAdapter(contentView.getContext(), banners, mViewPager2);
-        mViewPager2.setAdapter(mBannerListApdater);
+        BannerAdapter bannerAdapter = new BannerAdapter(contentView.getContext(), mViewPager2);
+        mViewPager2.setAdapter(bannerAdapter);
 
-        FirebaseDb.loadDataIntoView("Banners", Banner.class, banners, mBannerListApdater);
+        //Retrieve data for ViewPager2
+        bannerViewModel = new ViewModelProvider(this).get(BannerViewModel.class);
+        bannerViewModel.getBannersLiveData().observe(getViewLifecycleOwner(), banners -> {
+            if (banners != null) {
+                bannerAdapter.setBanners(banners);
+            }
+        });
 
+        //Set Transformer for ViewPager2
         mViewPager2.setClipToPadding(false);
         mViewPager2.setClipChildren(false);
         mViewPager2.setOffscreenPageLimit(3);
         mViewPager2.getChildAt(0).setOverScrollMode(RecyclerView.OVER_SCROLL_NEVER);
-
         CompositePageTransformer compositePageTransformer = new CompositePageTransformer();
         compositePageTransformer.addTransformer(new MarginPageTransformer(40));
         compositePageTransformer.addTransformer(new ViewPager2.PageTransformer() {
