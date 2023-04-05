@@ -1,4 +1,4 @@
-package com.example.appmobileclothes.Cart;
+package com.example.appmobileclothes.UI.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,29 +8,36 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.appmobileclothes.Controllers.ProductDAL;
-import com.example.appmobileclothes.Product.Product;
+import com.example.appmobileclothes.Models.Cart;
+import com.example.appmobileclothes.Models.Product;
 import com.example.appmobileclothes.R;
-
 import com.example.appmobileclothes.Utilities.StorageUtils;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.example.appmobileclothes.ViewModels.ProductViewModel;
 
 import java.util.ArrayList;
 
 public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
-    private ArrayList<Cart> cart_list;
+    private ArrayList<Cart> carts;
+    private ArrayList<Product> products;
     private Context context;
     private final LayoutInflater mInfalter;
     private String user_id;
 
-    public CartAdapter(ArrayList<Cart> cart_list, Context context, String id) {
-        this.cart_list = cart_list;
+    public CartAdapter(Context context, String id) {
         this.context = context;
         this.user_id = id;
         mInfalter = LayoutInflater.from(context);
     }
 
+    public void setCarts(ArrayList<Cart> carts) {
+        this.carts = carts;
+        notifyDataSetChanged();
+    }
+
+    public void setProducts(ArrayList<Product> products) {
+        this.products = products;
+        notifyDataSetChanged();
+    }
 
     @NonNull
     @Override
@@ -40,26 +47,26 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
         return new CartViewHolder(mItemView, this, context);
     }
 
+
+
     @Override
     public void onBindViewHolder(@NonNull CartViewHolder holder, int position) {
         // Get element from your dataset at this position and replace the contents of the view with that element
-        Cart mCurrent = cart_list.get(position);
-        if (mCurrent.getUser_id().equals(user_id)) {
-            Product product = ProductDAL.getById(mCurrent.getProd_id());
-
-
+        Cart mCurrent = carts.get(position);
         holder.setId(mCurrent.getId());
+
+        Product product = ProductViewModel.getProductById(products, mCurrent.getProd_id());
+
         holder.getTv_title().setText(product.getName());
         holder.getTv_price().setText(product.getPrice());
         holder.getTv_quantity().setText(product.getQuantity());
 
-        StorageUtils.loadStorageImageIntoImageView("product-img", product.getImage(), holder.getIv_image());
+        StorageUtils.loadStorageImageIntoImageView("product-img", product.getImg(), holder.getIv_image());
 
-        }
     }
 
     @Override
     public int getItemCount() {
-        return cart_list.size();
+        return carts.size();
     }
 }

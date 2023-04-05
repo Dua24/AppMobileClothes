@@ -82,7 +82,7 @@ public class HomeFragment extends Fragment {
         mRecyclerView.setAdapter(categoryAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(contentView.getContext(), LinearLayoutManager.HORIZONTAL, false));
 
-        //Retrieve data for ViewPager2
+        //Retrieve categories data
         categoryViewModel = new ViewModelProvider(this).get(CategoryViewModel.class);
         categoryViewModel.getCategoriesLiveData().observe(getViewLifecycleOwner(), categories -> {
             if (categories != null){
@@ -95,7 +95,7 @@ public class HomeFragment extends Fragment {
         BannerAdapter bannerAdapter = new BannerAdapter(contentView.getContext(), mViewPager2);
         mViewPager2.setAdapter(bannerAdapter);
 
-        //Retrieve data for ViewPager2
+        //Retrieve banners data
         bannerViewModel = new ViewModelProvider(this).get(BannerViewModel.class);
         bannerViewModel.getBannersLiveData().observe(getViewLifecycleOwner(), banners -> {
             if (banners != null) {

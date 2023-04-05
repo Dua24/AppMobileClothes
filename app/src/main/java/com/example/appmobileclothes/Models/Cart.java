@@ -1,4 +1,4 @@
-package com.example.appmobileclothes.Cart;
+package com.example.appmobileclothes.Models;
 
 public class Cart {
     private String id;

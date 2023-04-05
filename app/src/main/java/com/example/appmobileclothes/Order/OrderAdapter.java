@@ -8,8 +8,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.appmobileclothes.Cart.Cart;
-import com.example.appmobileclothes.Cart.CartViewHolder;
 import com.example.appmobileclothes.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;

@@ -1,4 +1,4 @@
-package com.example.appmobileclothes.Cart;
+package com.example.appmobileclothes.UI.Framents;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -7,10 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.appmobileclothes.FirebaseDb;
+import com.example.appmobileclothes.Models.Cart;
 import com.example.appmobileclothes.R;
+import com.example.appmobileclothes.UI.Adapters.CartAdapter;
+import com.example.appmobileclothes.ViewModels.CartViewModel;
+import com.example.appmobileclothes.ViewModels.ProductViewModel;
 
 import java.util.ArrayList;
 
@@ -61,25 +65,43 @@ public class CartFragment extends Fragment {
         }
     }
 
+    CartViewModel cartViewModel;
+    ProductViewModel productViewModel;
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View contentView = inflater.inflate(R.layout.fragment_cart, container, false);
         RecyclerView recyclerView = contentView.findViewById(R.id.cartFragment);
 
-        String id;
+        //RecyclerView for Carts
+        String id = "";
         Bundle args = getArguments();
         if (args != null) {
             id = args.getString("id");
 
-            ArrayList<Cart> products = new ArrayList<>();
-            CartAdapter adapter = new CartAdapter(products, contentView.getContext(), id);
-            recyclerView.setAdapter(adapter);
-            FirebaseDb.loadDataIntoView("Cart", Cart.class, products, adapter);
-            if (products==null){
-                recyclerView.setBackground(new Drawable(R.drawable.empty_cart));
-            }
+            CartAdapter cartAdapter = new CartAdapter(contentView.getContext(), id);
+            recyclerView.setAdapter(cartAdapter);
+
+            //Retrieve carts data
+            cartViewModel = new ViewModelProvider(this).get(CartViewModel.class);
+            cartViewModel.getCartsLiveData().observe(getViewLifecycleOwner(), carts -> {
+                if (carts != null) {
+                    cartAdapter.setCarts(carts);
+                }
+            });
+
+            //Retrieve products data
+            productViewModel = new ViewModelProvider(this).get(ProductViewModel.class);
+            productViewModel.getProductsLiveData().observe(getViewLifecycleOwner(), products -> {
+                if (products != null) {
+                    cartAdapter.setProducts(products);
+                }
+            });
+
+//            if (products == null) {
+//                recyclerView.setBackground(new Drawable(R.drawable.empty_cart));
+//            }
         }
         return contentView;
     }

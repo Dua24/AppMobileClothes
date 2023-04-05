@@ -1,4 +1,4 @@
-package com.example.appmobileclothes.Product;
+package com.example.appmobileclothes.Models;
 
 public class Product {
     private int id;
@@ -6,19 +6,19 @@ public class Product {
     private String gender;
     private int quantity;
     private int price;
-    private String image;
+    private String img;
     private int category;
 
     public Product() {
     }
 
-    public Product(int id, String name, String gender, int quantity, int price, String image, int category) {
+    public Product(int id, String name, String gender, int quantity, int price, String img, int category) {
         this.id = id;
         this.name = name;
         this.gender = gender;
         this.quantity = quantity;
         this.price = price;
-        this.image = image;
+        this.img = img;
         this.category = category;
     }
 
@@ -62,12 +62,12 @@ public class Product {
         this.price = price;
     }
 
-    public String getImage() {
-        return image;
+    public String getImg() {
+        return img;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImg(String img) {
+        this.img = img;
     }
 
     public int getCategory() {

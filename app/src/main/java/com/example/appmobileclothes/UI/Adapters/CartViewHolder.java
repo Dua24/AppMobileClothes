@@ -1,4 +1,4 @@
-package com.example.appmobileclothes.Cart;
+package com.example.appmobileclothes.UI.Adapters;
 
 import android.content.Context;
 import android.view.View;
