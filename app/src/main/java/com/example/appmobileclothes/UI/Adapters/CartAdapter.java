@@ -18,8 +18,8 @@ import com.example.appmobileclothes.ViewModels.ProductViewModel;
 import java.util.ArrayList;
 
 public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
-    private ArrayList<Cart> carts;
-    private ArrayList<Product> products;
+    private ArrayList<Cart> carts = new ArrayList<>();
+    private ArrayList<Product> products= new ArrayList<>();
     private Context context;
     private final LayoutInflater mInfalter;
     private String user_id;
@@ -48,26 +48,20 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
         return new CartViewHolder(mItemView, this, context);
     }
 
-
-
     @Override
     public void onBindViewHolder(@NonNull CartViewHolder holder, int position) {
         // Get element from your dataset at this position and replace the contents of the view with that element
         Cart mCurrent = carts.get(position);
         holder.setId(mCurrent.getId());
 
-        Log.e(">>>>",mCurrent.getId());
-        Log.e(">>>>",mCurrent.getUser_id());
-
-
 //        if (mCurrent.getUser_id().equals(user_id)){
-//            Product product = ProductViewModel.getProductById(products, mCurrent.getProd_id());
-//
-//            holder.getTv_title().setText(product.getName());
-//            holder.getTv_price().setText(product.getPrice());
-//            holder.getTv_quantity().setText(product.getQuantity());
-//
-//            StorageUtils.loadStorageImageIntoImageView("product-img", product.getImg(), holder.getIv_image());
+            Product product = ProductViewModel.getProductById(products, mCurrent.getProd_id());
+
+            holder.getTv_title().setText(product.getName());
+            holder.getTv_price().setText(product.getPrice());
+            holder.getTv_quantity().setText(product.getQuantity());
+
+            StorageUtils.loadStorageImageIntoImageView("product-img", product.getImg(), holder.getIv_image());
 //        }
     }
 

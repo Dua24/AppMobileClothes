@@ -77,33 +77,33 @@ public class CartFragment extends Fragment {
         View contentView = inflater.inflate(R.layout.fragment_cart, container, false);
         String id = "";
 
-        //RecyclerView for Carts
-        RecyclerView recyclerView = contentView.findViewById(R.id.cartFragment);
         Bundle args = getArguments();
         if (args != null) {
             id = args.getString("id");
-
-
-            CartAdapter cartAdapter = new CartAdapter(contentView.getContext(), id);
-            recyclerView.setAdapter(cartAdapter);
-
-            //Retrieve carts data
-            cartViewModel = new ViewModelProvider(this).get(CartViewModel.class);
-            cartViewModel.getCartsLiveData().observe(getViewLifecycleOwner(), carts -> {
-                if (carts != null) {
-                    cartAdapter.setCarts(carts);
-                }
-            });
-
-            //Retrieve products data
-            productViewModel = new ViewModelProvider(this).get(ProductViewModel.class);
-            productViewModel.getProductsLiveData().observe(getViewLifecycleOwner(), products -> {
-                if (products != null) {
-                    cartAdapter.setProducts(products);
-                    System.out.println(">>>>>>>>>>>>\n"+ products);
-                }
-            });
         }
+
+        //RecyclerView for Carts
+        RecyclerView recyclerView = contentView.findViewById(R.id.cartFragment);
+        CartAdapter cartAdapter = new CartAdapter(contentView.getContext(), id);
+        recyclerView.setAdapter(cartAdapter);
+
+        //Retrieve carts data
+        cartViewModel = new ViewModelProvider(this).get(CartViewModel.class);
+        cartViewModel.getCartsLiveData().observe(getViewLifecycleOwner(), carts -> {
+            if (carts != null) {
+                cartAdapter.setCarts(carts);
+                System.out.println(">>>>>>>>>>>>\n"+ carts);
+            }
+        });
+
+        //Retrieve products data
+        productViewModel = new ViewModelProvider(this).get(ProductViewModel.class);
+        productViewModel.getProductsLiveData().observe(getViewLifecycleOwner(), products -> {
+            if (products != null) {
+                cartAdapter.setProducts(products);
+                System.out.println(">>>>>>>>>>>>\n"+ products);
+            }
+        });
 //        recyclerView.setLayoutManager(new LinearLayoutManager(contentView.getContext()));
 
         Log.e("id",id);
