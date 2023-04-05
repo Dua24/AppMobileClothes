@@ -1,4 +1,4 @@
-package com.example.appmobileclothes.Order;
+package com.example.appmobileclothes.UI.Adapters;
 
 import android.content.Context;
 import android.view.View;
@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appmobileclothes.R;
+import com.example.appmobileclothes.UI.Adapters.OrderAdapter;
 
 public class OrderViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     private OrderAdapter orderAdapter;

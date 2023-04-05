@@ -8,7 +8,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.appmobileclothes.UI.Framents.CartFragment;
-import com.example.appmobileclothes.Order.OrderFragment;
+import com.example.appmobileclothes.UI.Framents.OrderFragment;
 import com.example.appmobileclothes.UI.Framents.HomeFragment;
 import com.example.appmobileclothes.databinding.ActivityMainBinding;
 

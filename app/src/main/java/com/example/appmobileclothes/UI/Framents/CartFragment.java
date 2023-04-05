@@ -2,12 +2,14 @@ package com.example.appmobileclothes.UI.Framents;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appmobileclothes.Models.Cart;
@@ -16,6 +18,7 @@ import com.example.appmobileclothes.UI.Adapters.CartAdapter;
 import com.example.appmobileclothes.ViewModels.CartViewModel;
 import com.example.appmobileclothes.ViewModels.ProductViewModel;
 
+import java.io.Console;
 import java.util.ArrayList;
 
 /**
@@ -72,13 +75,14 @@ public class CartFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View contentView = inflater.inflate(R.layout.fragment_cart, container, false);
-        RecyclerView recyclerView = contentView.findViewById(R.id.cartFragment);
+        String id = "";
 
         //RecyclerView for Carts
-        String id = "";
+        RecyclerView recyclerView = contentView.findViewById(R.id.cartFragment);
         Bundle args = getArguments();
         if (args != null) {
             id = args.getString("id");
+
 
             CartAdapter cartAdapter = new CartAdapter(contentView.getContext(), id);
             recyclerView.setAdapter(cartAdapter);
@@ -96,13 +100,17 @@ public class CartFragment extends Fragment {
             productViewModel.getProductsLiveData().observe(getViewLifecycleOwner(), products -> {
                 if (products != null) {
                     cartAdapter.setProducts(products);
+                    System.out.println(">>>>>>>>>>>>\n"+ products);
                 }
             });
-
-//            if (products == null) {
-//                recyclerView.setBackground(new Drawable(R.drawable.empty_cart));
-//            }
         }
+//        recyclerView.setLayoutManager(new LinearLayoutManager(contentView.getContext()));
+
+        Log.e("id",id);
+
+//        if (products == null) {
+//               recyclerView.setBackground(new Drawable(R.drawable.empty_cart));
+//         }
         return contentView;
     }
 }

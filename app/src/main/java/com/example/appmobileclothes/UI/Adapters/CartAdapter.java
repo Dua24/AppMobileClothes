@@ -1,6 +1,7 @@
 package com.example.appmobileclothes.UI.Adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,14 +56,19 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
         Cart mCurrent = carts.get(position);
         holder.setId(mCurrent.getId());
 
-        Product product = ProductViewModel.getProductById(products, mCurrent.getProd_id());
+        Log.e(">>>>",mCurrent.getId());
+        Log.e(">>>>",mCurrent.getUser_id());
 
-        holder.getTv_title().setText(product.getName());
-        holder.getTv_price().setText(product.getPrice());
-        holder.getTv_quantity().setText(product.getQuantity());
 
-        StorageUtils.loadStorageImageIntoImageView("product-img", product.getImg(), holder.getIv_image());
-
+//        if (mCurrent.getUser_id().equals(user_id)){
+//            Product product = ProductViewModel.getProductById(products, mCurrent.getProd_id());
+//
+//            holder.getTv_title().setText(product.getName());
+//            holder.getTv_price().setText(product.getPrice());
+//            holder.getTv_quantity().setText(product.getQuantity());
+//
+//            StorageUtils.loadStorageImageIntoImageView("product-img", product.getImg(), holder.getIv_image());
+//        }
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.example.appmobileclothes.Order;
+package com.example.appmobileclothes.UI.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.appmobileclothes.Models.Order;
 import com.example.appmobileclothes.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;

@@ -17,17 +17,6 @@ public class CartViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     private ImageView iv_image;
     private String id;
 
-    public CartViewHolder(@NonNull View itemView, CartAdapter cartAdapter, Context mainActivity, TextView tv_title,TextView tv_price,TextView tv_quantity, ImageView iv_image, String id) {
-        super(itemView);
-        this.cartAdapter = cartAdapter;
-        this.mainActivity = mainActivity;
-        this.tv_title = tv_title;
-        this.tv_price = tv_price;
-        this.tv_quantity = tv_quantity;
-        this.iv_image = iv_image;
-        this.id = id;
-    }
-
     public CartAdapter getCartAdapter() {
         return cartAdapter;
     }

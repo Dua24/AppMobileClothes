@@ -1,4 +1,4 @@
-package com.example.appmobileclothes.Order;
+package com.example.appmobileclothes.Models;
 
 import java.util.Date;
 
