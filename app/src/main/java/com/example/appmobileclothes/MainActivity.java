@@ -1,17 +1,17 @@
 package com.example.appmobileclothes;
 
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.os.Bundle;
-
 import com.example.appmobileclothes.Cart.CartFragment;
 import com.example.appmobileclothes.Order.OrderFragment;
 import com.example.appmobileclothes.databinding.ActivityMainBinding;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
 
@@ -32,16 +32,7 @@ public class MainActivity extends AppCompatActivity{
                     replaceFragment(new CartFragment());
                     break;
                 case R.id.profile:
-                    ProfileFragment fragment_profile = new ProfileFragment();
-                    Bundle args = new Bundle();
-                    args.putString("id", getIntent().getStringExtra("id"));
-                    args.putString("username", getIntent().getStringExtra("username"));
-                    args.putString("email", getIntent().getStringExtra("email"));
-                    fragment_profile.setArguments(args);
-
-                    getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.frame_layout, fragment_profile)
-                            .commit();
+                    replaceFragment(new ProfileFragment());
                     break;
                 case R.id.order:
                     replaceFragment(new OrderFragment());
@@ -52,6 +43,12 @@ public class MainActivity extends AppCompatActivity{
     }
 
     private void replaceFragment(Fragment fragment) {
+        Bundle args = new Bundle();
+        args.putString("id", getIntent().getStringExtra("id"));
+        args.putString("username", getIntent().getStringExtra("username"));
+        args.putString("email", getIntent().getStringExtra("email"));
+        fragment.setArguments(args);
+
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout, fragment);

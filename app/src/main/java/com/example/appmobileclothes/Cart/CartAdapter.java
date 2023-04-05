@@ -9,13 +9,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appmobileclothes.Controllers.ProductDAL;
-import com.example.appmobileclothes.Home.Category;
 import com.example.appmobileclothes.Product.Product;
 import com.example.appmobileclothes.R;
 import com.example.appmobileclothes.Storage;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -23,13 +19,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
     private ArrayList<Cart> cart_list;
     private Context context;
     private final LayoutInflater mInfalter;
+    private String user_id;
 
-    FirebaseDatabase database;
-    DatabaseReference dbRef;
-
-    public CartAdapter(ArrayList<Cart> cart_list, Context context) {
+    public CartAdapter(ArrayList<Cart> cart_list, Context context, String id) {
         this.cart_list = cart_list;
         this.context = context;
+        this.user_id = id;
         mInfalter = LayoutInflater.from(context);
     }
 
@@ -46,16 +41,16 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
     public void onBindViewHolder(@NonNull CartViewHolder holder, int position) {
         // Get element from your dataset at this position and replace the contents of the view with that element
         Cart mCurrent = cart_list.get(position);
+        if (mCurrent.getUser_id().equals(user_id)) {
+            Product product = ProductDAL.getById(mCurrent.getProd_id());
 
-        Product product = ProductDAL.getById(mCurrent.getProd_id());
+            holder.setId(mCurrent.getId());
+            holder.getTv_title().setText(product.getName());
+            holder.getTv_price().setText(product.getPrice());
+            holder.getTv_quantity().setText(product.getQuantity());
 
-        holder.setId(mCurrent.getId());
-        holder.getTv_title().setText(product.getName());
-        holder.getTv_price().setText(product.getPrice());
-        holder.getTv_quantity().setText(product.getQuantity());
-
-        Storage.loadImageIntoImageView("product-img", product.getImage(), holder.getIv_image());
-
+            Storage.loadImageIntoImageView("product-img", product.getImage(), holder.getIv_image());
+        }
     }
 
     @Override

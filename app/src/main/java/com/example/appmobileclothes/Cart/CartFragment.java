@@ -1,14 +1,13 @@
 package com.example.appmobileclothes.Cart;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appmobileclothes.FirebaseDb;
 import com.example.appmobileclothes.R;
@@ -69,11 +68,19 @@ public class CartFragment extends Fragment {
         View contentView = inflater.inflate(R.layout.fragment_cart, container, false);
         RecyclerView recyclerView = contentView.findViewById(R.id.cartFragment);
 
-        ArrayList<Cart> products = new ArrayList<>();
-        CartAdapter adapter = new CartAdapter(products, contentView.getContext());
-        recyclerView.setAdapter(adapter);
-        FirebaseDb.loadDataIntoView("Cart", Cart.class, products, adapter);
+        String id;
+        Bundle args = getArguments();
+        if (args != null) {
+            id = args.getString("id");
 
+            ArrayList<Cart> products = new ArrayList<>();
+            CartAdapter adapter = new CartAdapter(products, contentView.getContext(), id);
+            recyclerView.setAdapter(adapter);
+            FirebaseDb.loadDataIntoView("Cart", Cart.class, products, adapter);
+            if (products==null){
+                recyclerView.setBackground(new Drawable(R.drawable.empty_cart));
+            }
+        }
         return contentView;
     }
 }
