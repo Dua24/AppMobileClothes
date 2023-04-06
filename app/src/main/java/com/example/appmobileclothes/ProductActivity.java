@@ -8,9 +8,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.appmobileclothes.R;
-
-public class ViewProductActivity extends AppCompatActivity implements View.OnClickListener {
+public class ProductActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button bt_sub, bt_add, bt_add2cart;
     TextView tv_quantity, tv_description_detail, tv_product_name;

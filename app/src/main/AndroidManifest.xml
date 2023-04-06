@@ -29,7 +29,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ViewProductActivity"
+            android:name=".ProductActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
