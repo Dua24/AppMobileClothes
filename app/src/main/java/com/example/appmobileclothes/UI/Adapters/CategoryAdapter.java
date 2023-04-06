@@ -7,16 +7,13 @@ import android.view.ViewGroup;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.appmobileclothes.Models.Banner;
 import com.example.appmobileclothes.Models.Category;
 import com.example.appmobileclothes.R;
 import com.example.appmobileclothes.Utilities.StorageUtils;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
-
     private ArrayList<Category> categories;
     private final LayoutInflater mInfalter;
     private Context context;

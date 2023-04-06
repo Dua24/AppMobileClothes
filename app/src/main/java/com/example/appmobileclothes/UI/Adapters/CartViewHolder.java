@@ -17,22 +17,6 @@ public class CartViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     private ImageView iv_image;
     private String id;
 
-    public CartAdapter getCartAdapter() {
-        return cartAdapter;
-    }
-
-    public void setCartAdapter(CartAdapter cartAdapter) {
-        this.cartAdapter = cartAdapter;
-    }
-
-    public Context getMainActivity() {
-        return mainActivity;
-    }
-
-    public void setMainActivity(Context mainActivity) {
-        this.mainActivity = mainActivity;
-    }
-
     public TextView getTv_title() {
         return tv_title;
     }
@@ -79,7 +63,7 @@ public class CartViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         tv_title = itemView.findViewById(R.id.tv_title);
         tv_price = itemView.findViewById(R.id.tv_price);
         tv_quantity = itemView.findViewById(R.id.tv_quantity);
-        iv_image = itemView.findViewById(R.id.iv_Image);
+        iv_image = itemView.findViewById(R.id.iv_cart_item);
 
         this.mainActivity = context;
         this.cartAdapter = cartAdapter;

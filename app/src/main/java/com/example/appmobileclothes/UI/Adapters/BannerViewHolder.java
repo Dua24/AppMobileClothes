@@ -13,7 +13,6 @@ public class BannerViewHolder extends RecyclerView.ViewHolder {
     private BannerAdapter bannerAdapter;
     private Context mainActivity;
     private int id;
-    private String photo_source;
     private RoundedImageView imageView;
 
     public int getId() {
@@ -22,14 +21,6 @@ public class BannerViewHolder extends RecyclerView.ViewHolder {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getPhoto_source() {
-        return photo_source;
-    }
-
-    public void setPhoto_source(String photo_source) {
-        this.photo_source = photo_source;
     }
 
     public RoundedImageView getImageView() {

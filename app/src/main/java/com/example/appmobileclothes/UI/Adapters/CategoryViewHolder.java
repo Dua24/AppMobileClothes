@@ -44,7 +44,7 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder implements View.
         super(itemView);
 
         tv_CategoryName = itemView.findViewById(R.id.tv_CategoryName);
-        iv_Image = itemView.findViewById(R.id.iv_Image);
+        iv_Image = itemView.findViewById(R.id.iv_category_item);
 
         this.mainActivity = mainActivity;
         this.categoryAdapter = categoryAdapter;

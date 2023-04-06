@@ -1,7 +1,6 @@
 package com.example.appmobileclothes.UI.Adapters;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +17,8 @@ import com.example.appmobileclothes.ViewModels.ProductViewModel;
 import java.util.ArrayList;
 
 public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
-    private ArrayList<Cart> carts = new ArrayList<>();
-    private ArrayList<Product> products= new ArrayList<>();
+    private ArrayList<Cart> carts;
+    private ArrayList<Product> products;
     private Context context;
     private final LayoutInflater mInfalter;
     private String user_id;
@@ -27,6 +26,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
     public CartAdapter(Context context, String id) {
         this.context = context;
         this.user_id = id;
+        this.carts = new ArrayList<Cart>();
+        this.products = new ArrayList<Product>();
         mInfalter = LayoutInflater.from(context);
     }
 
@@ -54,15 +55,15 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
         Cart mCurrent = carts.get(position);
         holder.setId(mCurrent.getId());
 
-//        if (mCurrent.getUser_id().equals(user_id)){
+        if (products.size() > 0){
             Product product = ProductViewModel.getProductById(products, mCurrent.getProd_id());
 
             holder.getTv_title().setText(product.getName());
-            holder.getTv_price().setText(product.getPrice());
-            holder.getTv_quantity().setText(product.getQuantity());
+            holder.getTv_price().setText(product.getPrice() + "");
+            holder.getTv_quantity().setText(product.getQuantity() + "");
 
             StorageUtils.loadStorageImageIntoImageView("product-img", product.getImg(), holder.getIv_image());
-//        }
+        }
     }
 
     @Override

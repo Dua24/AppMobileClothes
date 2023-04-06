@@ -86,13 +86,13 @@ public class CartFragment extends Fragment {
         RecyclerView recyclerView = contentView.findViewById(R.id.cartFragment);
         CartAdapter cartAdapter = new CartAdapter(contentView.getContext(), id);
         recyclerView.setAdapter(cartAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(contentView.getContext()));
 
         //Retrieve carts data
         cartViewModel = new ViewModelProvider(this).get(CartViewModel.class);
         cartViewModel.getCartsLiveData().observe(getViewLifecycleOwner(), carts -> {
             if (carts != null) {
                 cartAdapter.setCarts(carts);
-                System.out.println(">>>>>>>>>>>>\n"+ carts);
             }
         });
 
@@ -101,12 +101,8 @@ public class CartFragment extends Fragment {
         productViewModel.getProductsLiveData().observe(getViewLifecycleOwner(), products -> {
             if (products != null) {
                 cartAdapter.setProducts(products);
-                System.out.println(">>>>>>>>>>>>\n"+ products);
             }
         });
-//        recyclerView.setLayoutManager(new LinearLayoutManager(contentView.getContext()));
-
-        Log.e("id",id);
 
 //        if (products == null) {
 //               recyclerView.setBackground(new Drawable(R.drawable.empty_cart));

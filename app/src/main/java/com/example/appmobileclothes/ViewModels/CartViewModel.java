@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.appmobileclothes.Models.Cart;
-import com.example.appmobileclothes.Models.Product;
 import com.example.appmobileclothes.Repositories.FirebaseRepository;
 
 import java.util.ArrayList;
