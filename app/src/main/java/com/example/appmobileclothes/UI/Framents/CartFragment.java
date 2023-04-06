@@ -1,11 +1,12 @@
 package com.example.appmobileclothes.UI.Framents;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -18,7 +19,6 @@ import com.example.appmobileclothes.UI.Adapters.CartAdapter;
 import com.example.appmobileclothes.ViewModels.CartViewModel;
 import com.example.appmobileclothes.ViewModels.ProductViewModel;
 
-import java.io.Console;
 import java.util.ArrayList;
 
 /**
@@ -75,8 +75,11 @@ public class CartFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View contentView = inflater.inflate(R.layout.fragment_cart, container, false);
-        String id = "";
 
+        ImageView iv_empty = contentView.findViewById(R.id.iv_empty_cart);
+
+
+        String id = "";
         Bundle args = getArguments();
         if (args != null) {
             id = args.getString("id");
@@ -88,11 +91,18 @@ public class CartFragment extends Fragment {
         recyclerView.setAdapter(cartAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(contentView.getContext()));
 
+        ArrayList<Cart> cartArrayList = new ArrayList<>();
+
         //Retrieve carts data
         cartViewModel = new ViewModelProvider(this).get(CartViewModel.class);
+        String finalId = id;
         cartViewModel.getCartsLiveData().observe(getViewLifecycleOwner(), carts -> {
             if (carts != null) {
-                cartAdapter.setCarts(carts);
+                ArrayList<Cart> list = CartViewModel.getCartsByUserId(carts, finalId);
+                cartAdapter.setCarts(list);
+                if (list.size() > 0){
+                    iv_empty.setVisibility(View.GONE);
+                }
             }
         });
 
@@ -104,9 +114,6 @@ public class CartFragment extends Fragment {
             }
         });
 
-//        if (products == null) {
-//               recyclerView.setBackground(new Drawable(R.drawable.empty_cart));
-//         }
         return contentView;
     }
 }

@@ -12,6 +12,7 @@ import com.example.appmobileclothes.Models.Cart;
 import com.example.appmobileclothes.Models.Product;
 import com.example.appmobileclothes.R;
 import com.example.appmobileclothes.Utilities.StorageUtils;
+import com.example.appmobileclothes.ViewModels.CartViewModel;
 import com.example.appmobileclothes.ViewModels.ProductViewModel;
 
 import java.util.ArrayList;
@@ -55,15 +56,18 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
         Cart mCurrent = carts.get(position);
         holder.setId(mCurrent.getId());
 
-        if (products.size() > 0){
+        if (products.size() > 0) {
             Product product = ProductViewModel.getProductById(products, mCurrent.getProd_id());
 
             holder.getTv_title().setText(product.getName());
             holder.getTv_price().setText(product.getPrice() + "");
-            holder.getTv_quantity().setText(product.getQuantity() + "");
+            holder.getTv_quantity().setText(mCurrent.getQuantity() + "");
+            holder.setMaxQuan(product.getQuantity());
+            holder.setTempQuan(mCurrent.getQuantity());
 
             StorageUtils.loadStorageImageIntoImageView("product-img", product.getImg(), holder.getIv_image());
         }
+
     }
 
     @Override

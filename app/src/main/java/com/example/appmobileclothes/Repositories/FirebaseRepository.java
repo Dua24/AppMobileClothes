@@ -39,5 +39,13 @@ public class FirebaseRepository {
         });
         return firebaseData;
     }
+
+    public <T> void deleteFirebaseData(String nodePath, String childPath) {
+        dbRef.child(nodePath).child(childPath).removeValue();
+    }
+
+    public <T> void updateFirebaseData(String nodePath, String childPath, String detailPath, String newDetail) {
+        dbRef.child(nodePath).child(childPath).child(detailPath).setValue(newDetail);
+    }
 }
 

@@ -59,6 +59,7 @@
                         android:gravity="end">
 
                         <Button
+                            android:id="@+id/btn_delete"
                             android:layout_width="25dp"
                             android:layout_height="25dp"
                             android:background="@drawable/close_cross" />
