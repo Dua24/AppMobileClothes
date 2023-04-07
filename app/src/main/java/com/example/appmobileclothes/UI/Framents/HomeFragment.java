@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -17,8 +18,10 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.example.appmobileclothes.UI.Adapters.CategoryAdapter;
 import com.example.appmobileclothes.R;
 import com.example.appmobileclothes.UI.Adapters.BannerAdapter;
+import com.example.appmobileclothes.UI.Adapters.ProductAdapter;
 import com.example.appmobileclothes.ViewModels.BannerViewModel;
 import com.example.appmobileclothes.ViewModels.CategoryViewModel;
+import com.example.appmobileclothes.ViewModels.ProductViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -70,13 +73,14 @@ public class HomeFragment extends Fragment {
 
     private BannerViewModel bannerViewModel;
     private CategoryViewModel categoryViewModel;
+    private ProductViewModel productViewModel;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View contentView = inflater.inflate(R.layout.fragment_home, container, false);
 
-        //RecyclerView for Categories
+        //RecyclerView for categories
         RecyclerView mRecyclerView = contentView.findViewById(R.id.recyclerview);
         CategoryAdapter categoryAdapter = new CategoryAdapter(contentView.getContext());
         mRecyclerView.setAdapter(categoryAdapter);
@@ -90,7 +94,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        //ViewPager2 for Banners
+        //ViewPager2 for banners
         ViewPager2 mViewPager2 = contentView.findViewById(R.id.viewPager);
         BannerAdapter bannerAdapter = new BannerAdapter(contentView.getContext(), mViewPager2);
         mViewPager2.setAdapter(bannerAdapter);
@@ -119,6 +123,18 @@ public class HomeFragment extends Fragment {
         });
         mViewPager2.setPageTransformer(compositePageTransformer);
 
+        //GridView for products
+        GridView mGridView = contentView.findViewById(R.id.gridview_home);
+        ProductAdapter productAdapter = new ProductAdapter(contentView.getContext());
+        mGridView.setAdapter(productAdapter);
+
+        //Retrieve products data
+        productViewModel = new ViewModelProvider(this).get(ProductViewModel.class);
+        productViewModel.getProductsLiveData().observe(getViewLifecycleOwner(), products -> {
+            if (products != null) {
+                productAdapter.setProducts(products);
+            }
+        });
         return contentView;
     }
 }
