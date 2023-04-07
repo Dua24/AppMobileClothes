@@ -4,14 +4,14 @@ import java.util.Date;
 
 public class Order {
     private String id;
-    private Date date;
+    private String date;
     private String user_id;
-    private int total;
+    private String total;
 
     public Order() {
     }
 
-    public Order(String id, Date date, String user_id, int total) {
+    public Order(String id, String date, String user_id, String total) {
         this.id = id;
         this.date = date;
         this.user_id = user_id;
@@ -26,11 +26,11 @@ public class Order {
         this.id = id;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
@@ -42,11 +42,11 @@ public class Order {
         this.user_id = user_id;
     }
 
-    public int getTotal() {
+    public String getTotal() {
         return total;
     }
 
-    public void setTotal(int total) {
+    public void setTotal(String total) {
         this.total = total;
     }
 }

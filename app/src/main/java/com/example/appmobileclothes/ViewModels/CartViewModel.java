@@ -35,4 +35,8 @@ public class CartViewModel extends ViewModel {
     public static void deleteCart(String id){
         firebaseRepository.deleteFirebaseData("Carts", id);
     }
+
+    public static void updateCart(String id, int detail){
+        firebaseRepository.updateFirebaseData("Carts", id, "quantity", detail );
+    }
 }

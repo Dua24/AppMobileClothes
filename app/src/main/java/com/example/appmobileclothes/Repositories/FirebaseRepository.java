@@ -44,7 +44,7 @@ public class FirebaseRepository {
         dbRef.child(nodePath).child(childPath).removeValue();
     }
 
-    public <T> void updateFirebaseData(String nodePath, String childPath, String detailPath, String newDetail) {
+    public <T> void updateFirebaseData(String nodePath, String childPath, String detailPath, Object newDetail) {
         dbRef.child(nodePath).child(childPath).child(detailPath).setValue(newDetail);
     }
 }

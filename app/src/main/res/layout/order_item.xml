@@ -7,7 +7,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="4dp"
         android:background="@color/white">
 
         <LinearLayout
@@ -16,7 +16,7 @@
             android:orientation="horizontal"
             android:paddingVertical="10dp"
             android:paddingStart="10dp"
-            android:paddingEnd="20dp">
+            android:paddingEnd="10dp">
 
             <ImageView
                 android:id="@+id/iv_photo"
@@ -27,9 +27,10 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_gravity="center">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -40,21 +41,34 @@
                         android:id="@+id/tv_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:maxWidth="200dp"
-                        android:text="TextTextTexaaaaas asdasd asda sda ád"
+                        android:maxWidth="180dp"
+                        android:text="TextTextTexaaaaas asda sda ád"
                         android:textColor="@color/black"
-
                         android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/tv_price"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/sf_pro_rounded_semibold"
-                        android:gravity="end"
-                        android:text="10000000d"
-                        android:textColor="@color/black"
-                        android:textSize="16sp" />
+                        android:gravity="end">
+
+                        <TextView
+                            android:id="@+id/tv_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/sf_pro_rounded_semibold"
+                            android:gravity="end"
+                            android:text="1000"
+                            android:textColor="@color/black"
+                            android:layout_marginEnd="5dp"
+                            android:textSize="16sp" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/sf_pro_rounded_semibold"
+                            android:layout_gravity="end"
+                            android:text="VND"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+                    </LinearLayout>
 
                 </LinearLayout>
 

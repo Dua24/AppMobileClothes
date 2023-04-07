@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -18,8 +17,8 @@
             <ListView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="70dp"
                 android:divider="@null"
-                android:layout_marginBottom="125dp"
                 android:scrollbars="none" />
 
         </LinearLayout>
@@ -29,6 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:background="@color/white"
+            android:elevation="20dp"
             android:orientation="vertical">
 
             <LinearLayout
@@ -54,6 +54,7 @@
                         android:textSize="13sp" />
 
                     <TextView
+                        android:id="@+id/tv_date"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="5dp"
@@ -66,57 +67,6 @@
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="5dp"
-                        android:fontFamily="@font/sf_pro_rounded_semibold"
-                        android:text="Shipping"
-                        android:textSize="13sp" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="5dp"
-                        android:fontFamily="@font/sf_pro_rounded_semibold"
-                        android:gravity="end"
-                        android:text="523d"
-                        android:textColor="@color/black"
-                        android:textSize="13sp" />
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="5dp"
-                        android:fontFamily="@font/sf_pro_rounded_semibold"
-                        android:text="Discount"
-                        android:textSize="13sp" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="5dp"
-                        android:fontFamily="@font/sf_pro_rounded_semibold"
-                        android:gravity="end"
-                        android:text="0%"
-                        android:textColor="@color/black"
-                        android:textSize="13sp" />
-
-
-                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -133,6 +83,7 @@
                         android:textSize="16sp" />
 
                     <TextView
+                        android:id="@+id/tv_total"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="5dp"
@@ -145,7 +96,6 @@
 
                 </LinearLayout>
             </LinearLayout>
-
 
 
         </LinearLayout>

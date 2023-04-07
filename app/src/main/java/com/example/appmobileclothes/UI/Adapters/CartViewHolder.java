@@ -108,6 +108,8 @@ public class CartViewHolder extends RecyclerView.ViewHolder {
                     if (tempQuan > 1) {
                         tempQuan -= 1;
                         tv_quantity.setText(String.valueOf(tempQuan));
+                        CartViewModel.updateCart(id, tempQuan);
+                        cartAdapter.notifyDataSetChanged();
                     } else {
                         AlertDialog.Builder builder = new AlertDialog.Builder(mainActivity);
 
@@ -116,6 +118,7 @@ public class CartViewHolder extends RecyclerView.ViewHolder {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
                                         CartViewModel.deleteCart(id);
+                                        cartAdapter.notifyDataSetChanged();
                                     }
                                 })
                                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -133,6 +136,8 @@ public class CartViewHolder extends RecyclerView.ViewHolder {
                     if (tempQuan < maxQuan){
                         tempQuan += 1;
                         tv_quantity.setText(String.valueOf(tempQuan));
+                        CartViewModel.updateCart(id, tempQuan);
+                        cartAdapter.notifyDataSetChanged();
                     }
                     break;
             }

@@ -7,7 +7,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="4dp"
         android:background="@color/white">
 
         <LinearLayout
@@ -21,18 +21,20 @@
             <ImageView
                 android:id="@+id/iv_photo"
                 android:layout_width="80dp"
-                android:layout_height="80dp" />
+                android:layout_height="80dp"
+                android:layout_gravity="center" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+
                     android:text="TextTextText"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
@@ -40,7 +42,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+
+                    android:layout_marginLeft="1dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -51,30 +54,77 @@
                         android:textSize="16sp" />
 
                     <TextView
+                        android:id="@+id/tv_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="6dp"
                         android:text="0d"
                         android:textColor="@color/black"
-                        android:textSize="16sp"
-                        android:layout_marginHorizontal="10dp"/>
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="5dp"
+                        android:text="VND"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/sf_pro_rounded_semibold"
+                            android:text="x"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="3dp"
+                            android:fontFamily="@font/sf_pro_rounded_semibold"
+                            android:text="2"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Total:"
                         android:textColor="@color/black"
-                        android:textSize="16sp"
-                        android:layout_marginStart="10dp"/>
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_total"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="6dp"
+                        android:text="0d"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0d"
+                        android:layout_marginHorizontal="5dp"
+                        android:text="VND"
                         android:textColor="@color/black"
-                        android:textSize="16sp"
-                        android:layout_marginHorizontal="10dp"/>
-
-
+                        android:textSize="16sp" />
                 </LinearLayout>
 
 
