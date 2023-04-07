@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.appmobileclothes.Models.Cart;
 import com.example.appmobileclothes.Models.Order;
 import com.example.appmobileclothes.R;
 import com.google.firebase.database.DatabaseReference;
@@ -16,19 +17,25 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderViewHolder> {
-    private ArrayList<Order> order_list;
+    private ArrayList<Order> orders;
     private Context context;
+    private String user_id;
     private final LayoutInflater mInfalter;
 
     FirebaseDatabase database;
     DatabaseReference dbRef;
 
-    public OrderAdapter(ArrayList<Order> order_list, Context context) {
-        this.order_list = order_list;
+    public OrderAdapter(Context context, String user_id) {
+        this.user_id = user_id;
+        this.orders = new ArrayList<>();
         this.context = context;
         mInfalter = LayoutInflater.from(context);
     }
 
+    public void setOrders(ArrayList<Order> orders) {
+        this.orders = orders;
+        notifyDataSetChanged();
+    }
 
     @NonNull
     @Override
@@ -41,12 +48,15 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull OrderViewHolder holder, int position) {
         // Get element from your dataset at this position and replace the contents of the view with that element
-        Order mCurrent = order_list.get(position);
-//        DatabaseReference Ref = FirebaseDatabase.getInstance().getReference("Carts");
+        Order mCurrent = orders.get(position);
+
+        holder.getTv_price().setText(mCurrent.getTotal());
+        holder.getTv_date().setText(mCurrent.getDate());
+        holder.getTv_title().setText(mCurrent.getTitle());
     }
 
     @Override
     public int getItemCount() {
-        return order_list.size();
+        return orders.size();
     }
 }

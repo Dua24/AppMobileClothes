@@ -21,7 +21,7 @@ public class CartViewHolder extends RecyclerView.ViewHolder {
     private ImageView iv_image;
     Button btn_delete;
     private String id;
-    private int tempQuan,maxQuan;
+    private int tempQuan, maxQuan;
 
     public TextView getTv_title() {
         return tv_title;
@@ -70,6 +70,7 @@ public class CartViewHolder extends RecyclerView.ViewHolder {
     public void setMaxQuan(int maxQuan) {
         this.maxQuan = maxQuan;
     }
+
     public void setTempQuan(int tempQuan) {
         this.tempQuan = tempQuan;
     }
@@ -107,7 +108,6 @@ public class CartViewHolder extends RecyclerView.ViewHolder {
                 case R.id.btn_sub:
                     if (tempQuan > 1) {
                         tempQuan -= 1;
-                        tv_quantity.setText(String.valueOf(tempQuan));
                         CartViewModel.updateCart(id, tempQuan);
                         cartAdapter.notifyDataSetChanged();
                     } else {
@@ -133,9 +133,8 @@ public class CartViewHolder extends RecyclerView.ViewHolder {
                     }
                     break;
                 case R.id.btn_add:
-                    if (tempQuan < maxQuan){
+                    if (tempQuan < maxQuan) {
                         tempQuan += 1;
-                        tv_quantity.setText(String.valueOf(tempQuan));
                         CartViewModel.updateCart(id, tempQuan);
                         cartAdapter.notifyDataSetChanged();
                     }

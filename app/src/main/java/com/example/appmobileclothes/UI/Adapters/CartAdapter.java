@@ -6,13 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appmobileclothes.Models.Cart;
 import com.example.appmobileclothes.Models.Product;
 import com.example.appmobileclothes.R;
 import com.example.appmobileclothes.Utilities.StorageUtils;
-import com.example.appmobileclothes.ViewModels.CartViewModel;
 import com.example.appmobileclothes.ViewModels.ProductViewModel;
 
 import java.util.ArrayList;
@@ -24,9 +24,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
     private final LayoutInflater mInfalter;
     private String user_id;
 
+    private MutableLiveData<Integer> subtotal;
+    private int sub;
+
     public CartAdapter(Context context, String id) {
         this.context = context;
         this.user_id = id;
+        this.subtotal = new MutableLiveData<>();
         this.carts = new ArrayList<Cart>();
         this.products = new ArrayList<Product>();
         mInfalter = LayoutInflater.from(context);
@@ -40,6 +44,19 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
     public void setProducts(ArrayList<Product> products) {
         this.products = products;
         notifyDataSetChanged();
+    }
+
+    public void updateSubTotal() {
+        int value = 0;
+        for (Cart cart : carts) {
+            Product product = ProductViewModel.getProductById(products, cart.getProd_id());
+            value += product.getPrice() * cart.getQuantity();
+        }
+        subtotal.setValue(value);
+    }
+
+    public MutableLiveData<Integer> getSubtotal() {
+        return subtotal;
     }
 
     @NonNull
@@ -65,9 +82,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
             holder.setMaxQuan(product.getQuantity());
             holder.setTempQuan(mCurrent.getQuantity());
 
+            updateSubTotal();
+
             StorageUtils.loadStorageImageIntoImageView("product-img", product.getImg(), holder.getIv_image());
         }
-
     }
 
     @Override

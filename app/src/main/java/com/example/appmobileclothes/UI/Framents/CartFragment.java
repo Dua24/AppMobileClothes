@@ -1,12 +1,12 @@
 package com.example.appmobileclothes.UI.Framents;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -14,12 +14,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appmobileclothes.Models.Cart;
+import com.example.appmobileclothes.Models.Order;
 import com.example.appmobileclothes.R;
 import com.example.appmobileclothes.UI.Adapters.CartAdapter;
 import com.example.appmobileclothes.ViewModels.CartViewModel;
+import com.example.appmobileclothes.ViewModels.OrderViewModel;
 import com.example.appmobileclothes.ViewModels.ProductViewModel;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -70,6 +77,9 @@ public class CartFragment extends Fragment {
 
     CartViewModel cartViewModel;
     ProductViewModel productViewModel;
+    Button btn_checkout;
+    TextView tv_subtotal, tv_total, tv_shipping;
+    String user_id = "";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -77,30 +87,31 @@ public class CartFragment extends Fragment {
         View contentView = inflater.inflate(R.layout.fragment_cart, container, false);
 
         ImageView iv_empty = contentView.findViewById(R.id.iv_empty_cart);
+        btn_checkout = contentView.findViewById(R.id.btn_checkout);
+        tv_subtotal = contentView.findViewById(R.id.tv_subtotal);
+        tv_total = contentView.findViewById(R.id.tv_total);
+        tv_shipping = contentView.findViewById(R.id.tv_shipping);
 
 
-        String id = "";
         Bundle args = getArguments();
         if (args != null) {
-            id = args.getString("id");
+            user_id = args.getString("id");
         }
 
         //RecyclerView for Carts
         RecyclerView recyclerView = contentView.findViewById(R.id.cartFragment);
-        CartAdapter cartAdapter = new CartAdapter(contentView.getContext(), id);
+        CartAdapter cartAdapter = new CartAdapter(contentView.getContext(), user_id);
         recyclerView.setAdapter(cartAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(contentView.getContext()));
 
-        ArrayList<Cart> cartArrayList = new ArrayList<>();
-
         //Retrieve carts data
         cartViewModel = new ViewModelProvider(this).get(CartViewModel.class);
-        String finalId = id;
+        String finalId = user_id;
         cartViewModel.getCartsLiveData().observe(getViewLifecycleOwner(), carts -> {
             if (carts != null) {
                 ArrayList<Cart> list = CartViewModel.getCartsByUserId(carts, finalId);
                 cartAdapter.setCarts(list);
-                if (list.size() > 0){
+                if (list.size() > 0) {
                     iv_empty.setVisibility(View.GONE);
                 }
             }
@@ -114,6 +125,44 @@ public class CartFragment extends Fragment {
             }
         });
 
+        cartViewModel = new ViewModelProvider(this).get(CartViewModel.class);
+        cartViewModel.getCartsLiveData().observe(getViewLifecycleOwner(), carts -> {
+            if (carts != null) {
+                ArrayList<Cart> list = CartViewModel.getCartsByUserId(carts, finalId);
+                cartAdapter.setCarts(list);
+                if (list.size() > 0) {
+                    iv_empty.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        cartAdapter.getSubtotal().observe(getViewLifecycleOwner(), total -> {
+            if (total != null) {
+                tv_subtotal.setText(String.valueOf(total));
+                int ship = Integer.parseInt(tv_shipping.getText().toString());
+                int totals = total + ship;
+                tv_total.setText(String.valueOf(totals));
+            }
+        });
+
+        btn_checkout.setOnClickListener(checkout);
+
         return contentView;
     }
+
+    public View.OnClickListener checkout = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Calendar calendar = Calendar.getInstance();
+            Date now = calendar.getTime();
+            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+            String strDate = formatter.format(now);
+            String total = tv_total.getText().toString();
+
+            Order order = new Order("aa", strDate, "aa", user_id, total);
+
+             OrderViewModel orderViewModel = new OrderViewModel();
+             orderViewModel.addOrder(order);
+        }
+    };
 }

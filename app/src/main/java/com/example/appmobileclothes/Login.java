@@ -84,6 +84,5 @@ TextView register,email,password;
                 startActivity(intent);
             }
         });
-
     }
 }

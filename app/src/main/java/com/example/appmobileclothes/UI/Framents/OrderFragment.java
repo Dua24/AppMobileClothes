@@ -1,14 +1,25 @@
 package com.example.appmobileclothes.UI.Framents;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.appmobileclothes.Models.Cart;
+import com.example.appmobileclothes.Models.Order;
 import com.example.appmobileclothes.R;
+import com.example.appmobileclothes.UI.Adapters.CartAdapter;
+import com.example.appmobileclothes.UI.Adapters.OrderAdapter;
+import com.example.appmobileclothes.ViewModels.CartViewModel;
+import com.example.appmobileclothes.ViewModels.OrderViewModel;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -57,11 +68,40 @@ public class OrderFragment extends Fragment {
         }
     }
 
+    OrderViewModel orderViewModel;
+    String user_id;
+    ImageView iv_empty;
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        getActivity().setTitle("My Orders");
-        return inflater.inflate(R.layout.fragment_order, container, false);
+        View contentView = inflater.inflate(R.layout.fragment_order, container, false);
+        iv_empty = contentView.findViewById(R.id.iv_empty);
+
+        Bundle args = getArguments();
+        if (args != null) {
+            user_id = args.getString("id");
+        }
+
+        //RecyclerView for Carts
+        RecyclerView recyclerView = contentView.findViewById(R.id.recycler_order);
+        OrderAdapter orderAdapter = new OrderAdapter(contentView.getContext(), user_id);
+        recyclerView.setAdapter(orderAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(contentView.getContext()));
+
+        //Retrieve carts data
+        orderViewModel = new ViewModelProvider(this).get(OrderViewModel.class);
+        String finalId = user_id;
+        orderViewModel.getOrdersLiveData().observe(getViewLifecycleOwner(), orders -> {
+            if (orders != null) {
+                ArrayList<Order> list = OrderViewModel.getOrdersByUserId(orders, finalId);
+                orderAdapter.setOrders(list);
+                if (list.size() > 0) {
+                    iv_empty.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        return contentView;
     }
 }

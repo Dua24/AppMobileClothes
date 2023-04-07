@@ -17,16 +17,53 @@ public class OrderViewHolder extends RecyclerView.ViewHolder implements View.OnC
     private TextView tv_title, tv_date, tv_price;
     private String id;
 
-    public OrderViewHolder(@NonNull View itemView, OrderAdapter orderAdapter, Context mainActivity, TextView tv_title, TextView tv_date, TextView tv_price, ImageView iv_image, String id) {
-        super(itemView);
-        this.orderAdapter = orderAdapter;
-        this.mainActivity = mainActivity;
-        this.tv_title = tv_title;
-        this.tv_date = tv_date;
-        this.tv_price = tv_price;
-        this.id = id;
+    public OrderAdapter getOrderAdapter() {
+        return orderAdapter;
     }
 
+    public void setOrderAdapter(OrderAdapter orderAdapter) {
+        this.orderAdapter = orderAdapter;
+    }
+
+    public Context getMainActivity() {
+        return mainActivity;
+    }
+
+    public void setMainActivity(Context mainActivity) {
+        this.mainActivity = mainActivity;
+    }
+
+    public TextView getTv_title() {
+        return tv_title;
+    }
+
+    public void setTv_title(TextView tv_title) {
+        this.tv_title = tv_title;
+    }
+
+    public TextView getTv_date() {
+        return tv_date;
+    }
+
+    public void setTv_date(TextView tv_date) {
+        this.tv_date = tv_date;
+    }
+
+    public TextView getTv_price() {
+        return tv_price;
+    }
+
+    public void setTv_price(TextView tv_price) {
+        this.tv_price = tv_price;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public OrderViewHolder(@NonNull View itemView, OrderAdapter orderAdapter, Context context) {
         super(itemView);
