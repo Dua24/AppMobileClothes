@@ -108,18 +108,9 @@ public class SlideViewPagerAdapter extends PagerAdapter {
                 back.setVisibility(View.VISIBLE);
                 next.setVisibility(View.GONE);
                 break;
-
-
-
-
-
-
         }
-
-
         container.addView(view);
         return view;
-
     }
 
     @Override
