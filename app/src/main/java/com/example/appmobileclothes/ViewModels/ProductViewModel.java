@@ -1,6 +1,7 @@
 package com.example.appmobileclothes.ViewModels;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.appmobileclothes.Models.Product;
@@ -28,5 +29,26 @@ public class ProductViewModel extends ViewModel {
             }
         }
         return null;
+    }
+
+    // Get products that match the given name and category
+    public LiveData<ArrayList<Product>> searchProducts(String name, int category, String gender) {
+        MutableLiveData<ArrayList<Product>> filteredData = new MutableLiveData<>();
+        productsLiveData.observeForever(products -> {
+            ArrayList<Product> filteredProducts = new ArrayList<>();
+            for (Product product : products) {
+                if (category == 99) {
+                    if (product.getName().toLowerCase().contains(name.toLowerCase()) && product.getGender().toLowerCase().equals(gender.toLowerCase())) {
+                        filteredProducts.add(product);
+                    }
+                } else {
+                    if (product.getName().toLowerCase().contains(name.toLowerCase()) && product.getCategory() == category && product.getGender().toLowerCase().equals(gender.toLowerCase())) {
+                        filteredProducts.add(product);
+                    }
+                }
+            }
+            filteredData.setValue(filteredProducts);
+        });
+        return filteredData;
     }
 }

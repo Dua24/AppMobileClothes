@@ -46,26 +46,28 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingHorizontal="13dp"
-            android:paddingVertical="3dp"
-            android:layout_gravity="center">
+            android:paddingVertical="3dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="start"
+                android:layout_gravity="center"
                 android:layout_weight="1"
-                android:textSize="20dp"
                 android:fontFamily="@font/sf_pro_rounded_bold"
                 android:text="Most Popular"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textSize="19dp" />
 
             <TextView
+                android:id="@+id/btn_seeAll"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end"
+                android:layout_gravity="center"
                 android:layout_weight="1"
+                android:clickable="true"
                 android:fontFamily="@font/sf_pro_rounded_medium"
                 android:gravity="end"
+                android:onClick="onClick"
                 android:text="See All"
                 android:textColor="@color/secondary_color" />
 
