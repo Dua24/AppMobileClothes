@@ -1,12 +1,15 @@
 package com.example.appmobileclothes.UI.Framents;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,6 +18,7 @@ import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.example.appmobileclothes.SearchActivity;
 import com.example.appmobileclothes.UI.Adapters.CategoryAdapter;
 import com.example.appmobileclothes.R;
 import com.example.appmobileclothes.UI.Adapters.BannerAdapter;
@@ -74,11 +78,40 @@ public class HomeFragment extends Fragment {
     private BannerViewModel bannerViewModel;
     private CategoryViewModel categoryViewModel;
     private ProductViewModel productViewModel;
+    private SearchView searchView;
+    private TextView btn_seeAll;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View contentView = inflater.inflate(R.layout.fragment_home, container, false);
+
+        btn_seeAll = contentView.findViewById(R.id.btn_seeAll);
+        btn_seeAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(), SearchActivity.class);
+                startActivity(i);
+            }
+        });
+
+        searchView = contentView.findViewById(R.id.searchView);
+        searchView.clearFocus();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String productName) {
+                Intent i = new Intent(getActivity(), SearchActivity.class);
+                i.putExtra("productName",productName);
+                startActivity(i);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
 
         //RecyclerView for categories
         RecyclerView mRecyclerView = contentView.findViewById(R.id.recyclerview);
