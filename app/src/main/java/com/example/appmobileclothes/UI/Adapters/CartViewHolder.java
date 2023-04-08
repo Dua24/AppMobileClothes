@@ -129,6 +129,7 @@ public class CartViewHolder extends RecyclerView.ViewHolder {
                                 });
 
                         AlertDialog dialog = builder.create();
+                        dialog.getWindow().setBackgroundDrawableResource(R.drawable.custom_dialog);
                         dialog.show();
                     }
                     break;
