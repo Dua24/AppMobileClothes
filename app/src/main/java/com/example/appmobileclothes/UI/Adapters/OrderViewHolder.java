@@ -1,6 +1,9 @@
 package com.example.appmobileclothes.UI.Adapters;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -8,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.appmobileclothes.OrderDetailActivity;
 import com.example.appmobileclothes.R;
 import com.example.appmobileclothes.UI.Adapters.OrderAdapter;
 
@@ -16,22 +20,6 @@ public class OrderViewHolder extends RecyclerView.ViewHolder implements View.OnC
     private Context mainActivity;
     private TextView tv_title, tv_date, tv_price;
     private String id;
-
-    public OrderAdapter getOrderAdapter() {
-        return orderAdapter;
-    }
-
-    public void setOrderAdapter(OrderAdapter orderAdapter) {
-        this.orderAdapter = orderAdapter;
-    }
-
-    public Context getMainActivity() {
-        return mainActivity;
-    }
-
-    public void setMainActivity(Context mainActivity) {
-        this.mainActivity = mainActivity;
-    }
 
     public TextView getTv_title() {
         return tv_title;
@@ -79,6 +67,8 @@ public class OrderViewHolder extends RecyclerView.ViewHolder implements View.OnC
 
     @Override
     public void onClick(View view) {
-
+        Intent intent = new Intent(mainActivity, OrderDetailActivity.class);
+        intent.putExtra("orderId", id);
+        mainActivity.startActivity(intent);
     }
 }

@@ -3,10 +3,8 @@ package com.example.appmobileclothes.ViewModels;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.appmobileclothes.Models.Cart;
 import com.example.appmobileclothes.Models.Order;
 import com.example.appmobileclothes.Repositories.FirebaseRepository;
-import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
 
@@ -23,8 +21,12 @@ public class OrderViewModel extends ViewModel {
         return ordersLiveData;
     }
 
-    public void addOrder(Order data) {
-        firebaseRepository.addFirebaseData("Invoice", data);
+    public void addOrder(Order data, String key) {
+        firebaseRepository.addFirebaseData("Invoice", data, key);
+    }
+
+    public String getOrderKey() {
+        return firebaseRepository.getKey("Invoice");
     }
 
     public static ArrayList<Order> getOrdersByUserId(ArrayList<Order> orders, String userId) {
@@ -35,5 +37,14 @@ public class OrderViewModel extends ViewModel {
             }
         }
         return orderArrayList;
+    }
+
+    public static Order getOrderById(ArrayList<Order> orders, String id) {
+        for (Order order : orders) {
+            if (order.getId().equals(id)) {
+                return order;
+            }
+        }
+        return null;
     }
 }

@@ -15,13 +15,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appmobileclothes.Models.Cart;
 import com.example.appmobileclothes.Models.Order;
+import com.example.appmobileclothes.Models.OrderDetail;
+import com.example.appmobileclothes.Models.Product;
 import com.example.appmobileclothes.R;
 import com.example.appmobileclothes.UI.Adapters.CartAdapter;
 import com.example.appmobileclothes.ViewModels.CartViewModel;
+import com.example.appmobileclothes.ViewModels.OrderDetailViewModel;
 import com.example.appmobileclothes.ViewModels.OrderViewModel;
 import com.example.appmobileclothes.ViewModels.ProductViewModel;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -100,16 +101,15 @@ public class CartFragment extends Fragment {
 
         //RecyclerView for Carts
         RecyclerView recyclerView = contentView.findViewById(R.id.cartFragment);
-        CartAdapter cartAdapter = new CartAdapter(contentView.getContext(), user_id);
+        CartAdapter cartAdapter = new CartAdapter(contentView.getContext());
         recyclerView.setAdapter(cartAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(contentView.getContext()));
 
         //Retrieve carts data
         cartViewModel = new ViewModelProvider(this).get(CartViewModel.class);
-        String finalId = user_id;
         cartViewModel.getCartsLiveData().observe(getViewLifecycleOwner(), carts -> {
             if (carts != null) {
-                ArrayList<Cart> list = CartViewModel.getCartsByUserId(carts, finalId);
+                ArrayList<Cart> list = CartViewModel.getCartsByUserId(carts, user_id);
                 cartAdapter.setCarts(list);
                 if (list.size() > 0) {
                     iv_empty.setVisibility(View.GONE);
@@ -122,17 +122,6 @@ public class CartFragment extends Fragment {
         productViewModel.getProductsLiveData().observe(getViewLifecycleOwner(), products -> {
             if (products != null) {
                 cartAdapter.setProducts(products);
-            }
-        });
-
-        cartViewModel = new ViewModelProvider(this).get(CartViewModel.class);
-        cartViewModel.getCartsLiveData().observe(getViewLifecycleOwner(), carts -> {
-            if (carts != null) {
-                ArrayList<Cart> list = CartViewModel.getCartsByUserId(carts, finalId);
-                cartAdapter.setCarts(list);
-                if (list.size() > 0) {
-                    iv_empty.setVisibility(View.GONE);
-                }
             }
         });
 
@@ -153,16 +142,46 @@ public class CartFragment extends Fragment {
     public View.OnClickListener checkout = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+            //add Order data into firebase
             Calendar calendar = Calendar.getInstance();
             Date now = calendar.getTime();
             SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
             String strDate = formatter.format(now);
             String total = tv_total.getText().toString();
 
-            Order order = new Order("aa", strDate, "aa", user_id, total);
+            OrderViewModel orderViewModel = new OrderViewModel();
+            String key = orderViewModel.getOrderKey();
+            Order order = new Order(key, strDate, "Multiverse", user_id, total);
 
-             OrderViewModel orderViewModel = new OrderViewModel();
-             orderViewModel.addOrder(order);
+            orderViewModel.addOrder(order, key);
+
+            //add Order Detail into firebase
+
+            cartViewModel = new ViewModelProvider(getActivity()).get(CartViewModel.class);
+            productViewModel = new ViewModelProvider(getActivity()).get(ProductViewModel.class);
+            cartViewModel.getCartsLiveData().observe(getViewLifecycleOwner(), carts -> {
+                if (carts == null) {
+                    return;
+                }
+                ArrayList<Cart> list = CartViewModel.getCartsByUserId(carts, user_id);
+                productViewModel.getProductsLiveData().observe(getViewLifecycleOwner(), products -> {
+                    if (products == null) {
+                        return;
+                    }
+                    for (Cart cart : list) {
+                        OrderDetailViewModel orderDetailViewModel = new OrderDetailViewModel();
+                        String detailKey = orderDetailViewModel.getOrderDetailKey();
+
+                        Product product = ProductViewModel.getProductById(products, cart.getProd_id());
+
+                        OrderDetail orderDetail = new OrderDetail(detailKey, key, cart.getProd_id(), product.getName(),
+                                cart.getQuantity(), product.getPrice());
+                        orderDetailViewModel.addOrderDetail(orderDetail, detailKey);
+                    }
+
+                });
+
+            });
         }
     };
 }

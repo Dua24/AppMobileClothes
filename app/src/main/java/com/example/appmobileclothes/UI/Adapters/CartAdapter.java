@@ -22,14 +22,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
     private ArrayList<Product> products;
     private Context context;
     private final LayoutInflater mInfalter;
-    private String user_id;
-
     private MutableLiveData<Integer> subtotal;
-    private int sub;
 
-    public CartAdapter(Context context, String id) {
+    public CartAdapter(Context context) {
         this.context = context;
-        this.user_id = id;
         this.subtotal = new MutableLiveData<>();
         this.carts = new ArrayList<Cart>();
         this.products = new ArrayList<Product>();

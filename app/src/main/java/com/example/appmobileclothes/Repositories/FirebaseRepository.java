@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.appmobileclothes.Models.Order;
+import com.example.appmobileclothes.Models.OrderDetail;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -49,13 +50,12 @@ public class FirebaseRepository {
         dbRef.child(nodePath).child(key).child(detailPath).setValue(newDetail);
     }
 
-    public <T> void addFirebaseData(String nodePath, T data) {
+    public String getKey(String nodePath){
         String key = dbRef.child(nodePath).push().getKey();
-        // Update the "key" field in the data object
-        if (data instanceof Order) {
-            Order order = (Order) data;
-            order.setId(key);
-        }
+        return key;
+    }
+
+    public <T> void addFirebaseData(String nodePath, T data, String key) {
         dbRef.child(nodePath).child(key).setValue(data);
     }
 

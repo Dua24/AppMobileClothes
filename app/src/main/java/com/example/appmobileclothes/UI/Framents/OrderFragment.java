@@ -11,12 +11,9 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.appmobileclothes.Models.Cart;
 import com.example.appmobileclothes.Models.Order;
 import com.example.appmobileclothes.R;
-import com.example.appmobileclothes.UI.Adapters.CartAdapter;
 import com.example.appmobileclothes.UI.Adapters.OrderAdapter;
-import com.example.appmobileclothes.ViewModels.CartViewModel;
 import com.example.appmobileclothes.ViewModels.OrderViewModel;
 
 import java.util.ArrayList;
@@ -91,10 +88,9 @@ public class OrderFragment extends Fragment {
 
         //Retrieve carts data
         orderViewModel = new ViewModelProvider(this).get(OrderViewModel.class);
-        String finalId = user_id;
         orderViewModel.getOrdersLiveData().observe(getViewLifecycleOwner(), orders -> {
             if (orders != null) {
-                ArrayList<Order> list = OrderViewModel.getOrdersByUserId(orders, finalId);
+                ArrayList<Order> list = OrderViewModel.getOrdersByUserId(orders, user_id);
                 orderAdapter.setOrders(list);
                 if (list.size() > 0) {
                     iv_empty.setVisibility(View.GONE);

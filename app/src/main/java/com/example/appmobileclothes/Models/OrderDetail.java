@@ -3,7 +3,7 @@ package com.example.appmobileclothes.Models;
 public class OrderDetail {
     private String id;
     private String order_id;
-    private String prod_id;
+    private int prod_id;
     private String name;
     private int quantity;
     private int price;
@@ -11,7 +11,7 @@ public class OrderDetail {
     public OrderDetail() {
     }
 
-    public OrderDetail(String id, String order_id, String prod_id, String name, int quantity, int price) {
+    public OrderDetail(String id, String order_id, int prod_id, String name, int quantity, int price) {
         this.id = id;
         this.order_id = order_id;
         this.prod_id = prod_id;
@@ -36,11 +36,11 @@ public class OrderDetail {
         this.order_id = order_id;
     }
 
-    public String getProd_id() {
+    public int getProd_id() {
         return prod_id;
     }
 
-    public void setProd_id(String prod_id) {
+    public void setProd_id(int prod_id) {
         this.prod_id = prod_id;
     }
 

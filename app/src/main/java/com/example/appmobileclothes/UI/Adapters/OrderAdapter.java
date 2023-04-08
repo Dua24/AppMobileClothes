@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.appmobileclothes.Models.Cart;
 import com.example.appmobileclothes.Models.Order;
 import com.example.appmobileclothes.R;
 import com.google.firebase.database.DatabaseReference;
@@ -21,9 +20,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderViewHolder> {
     private Context context;
     private String user_id;
     private final LayoutInflater mInfalter;
-
-    FirebaseDatabase database;
-    DatabaseReference dbRef;
 
     public OrderAdapter(Context context, String user_id) {
         this.user_id = user_id;
@@ -49,6 +45,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderViewHolder> {
     public void onBindViewHolder(@NonNull OrderViewHolder holder, int position) {
         // Get element from your dataset at this position and replace the contents of the view with that element
         Order mCurrent = orders.get(position);
+        holder.setId(mCurrent.getId());
 
         holder.getTv_price().setText(mCurrent.getTotal());
         holder.getTv_date().setText(mCurrent.getDate());

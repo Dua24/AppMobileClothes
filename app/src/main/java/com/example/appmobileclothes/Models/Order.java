@@ -1,7 +1,5 @@
 package com.example.appmobileclothes.Models;
 
-import java.util.Date;
-
 public class Order {
     private String id;
     private String date;

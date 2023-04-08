@@ -22,7 +22,21 @@ public class OrderDetailViewModel extends ViewModel {
         return ordersLiveData;
     }
 
-    public static void addOrder(OrderDetail data, String key){
-//        firebaseRepository.addFirebsaeData(data, key);
+    public void addOrderDetail(OrderDetail data, String key){
+        firebaseRepository.addFirebaseData("Invoice_Detail", data, key);
+    }
+
+    public String getOrderDetailKey() {
+        return firebaseRepository.getKey("Invoice_Detail");
+    }
+
+    public static ArrayList<OrderDetail> getOrderDetailByOrderId(ArrayList<OrderDetail> details, String orderId) {
+        ArrayList<OrderDetail> detailArrayList = new ArrayList<>();
+        for (OrderDetail orderDetail : details) {
+            if (orderDetail.getOrder_id().equals(orderId)) {
+                detailArrayList.add(orderDetail);
+            }
+        }
+        return detailArrayList;
     }
 }
