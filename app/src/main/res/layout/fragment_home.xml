@@ -19,8 +19,9 @@
             android:layout_marginTop="9dp"
             android:background="@drawable/search_round_style"
             android:padding="3dp"
-            app:iconifiedByDefault="false"
-            app:queryBackground="@color/white" />
+            app:iconifiedByDefault="true"
+            app:queryBackground="@color/white"
+            android:elevation="3dp"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerview"
