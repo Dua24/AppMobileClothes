@@ -174,18 +174,13 @@ public class HomeFragment extends Fragment {
                 LiveData<ArrayList<Product>> productsLiveData = viewModel.getProductsLiveData();
 
                 productsLiveData.observe(getViewLifecycleOwner(), productList -> {
-                    int quantity=0;
-                    for (Product pdt : productList) {
-                        quantity++;
-                    }
-
                     // get the product with the given id
                     int productId = mGridView.getPositionForView(view); // replace with the id you want to search for
                     Product product = ProductViewModel.getProductById(productList, productId);
 
 
                     if (product != null) {
-                        Object[] objArr = getProductforDetail(product,quantity);
+                        Object[] objArr = getProductforDetail(product);
                         Intent intent = new Intent(getContext(),ProductActivity.class);
                         intent.putExtra("data", objArr);
                         startActivity(intent);
@@ -206,11 +201,12 @@ public class HomeFragment extends Fragment {
         return contentView;
     }
 
-    public Object[] getProductforDetail(Product product, int quantity) {
-        Object[] objArr = new Object[3];
+    public Object[] getProductforDetail(Product product) {
+        Object[] objArr = new Object[4];
         objArr[0] = product.getName();
         objArr[1] = product.getPrice();
         objArr[2] = product.getImg();
+        objArr[3] = product.getQuantity();
         return objArr;
     }
 }
