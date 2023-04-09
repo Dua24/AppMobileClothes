@@ -5,12 +5,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,6 +20,8 @@ import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.example.appmobileclothes.Models.Product;
+import com.example.appmobileclothes.ProductActivity;
 import com.example.appmobileclothes.SearchActivity;
 import com.example.appmobileclothes.UI.Adapters.CategoryAdapter;
 import com.example.appmobileclothes.R;
@@ -26,6 +30,8 @@ import com.example.appmobileclothes.UI.Adapters.ProductAdapter;
 import com.example.appmobileclothes.ViewModels.BannerViewModel;
 import com.example.appmobileclothes.ViewModels.CategoryViewModel;
 import com.example.appmobileclothes.ViewModels.ProductViewModel;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -161,6 +167,35 @@ public class HomeFragment extends Fragment {
         ProductAdapter productAdapter = new ProductAdapter(contentView.getContext());
         mGridView.setAdapter(productAdapter);
 
+        mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ProductViewModel viewModel = new ProductViewModel();
+                LiveData<ArrayList<Product>> productsLiveData = viewModel.getProductsLiveData();
+
+                productsLiveData.observe(getViewLifecycleOwner(), productList -> {
+                    int quantity=0;
+                    for (Product pdt : productList) {
+                        quantity++;
+                    }
+
+                    // get the product with the given id
+                    int productId = mGridView.getPositionForView(view); // replace with the id you want to search for
+                    Product product = ProductViewModel.getProductById(productList, productId);
+
+
+                    if (product != null) {
+                        Object[] objArr = getProductforDetail(product,quantity);
+                        Intent intent = new Intent(getContext(),ProductActivity.class);
+                        intent.putExtra("data", objArr);
+                        startActivity(intent);
+                    } else {
+
+                    }
+                });
+            }
+        });
+
         //Retrieve products data
         productViewModel = new ViewModelProvider(this).get(ProductViewModel.class);
         productViewModel.getProductsLiveData().observe(getViewLifecycleOwner(), products -> {
@@ -169,5 +204,13 @@ public class HomeFragment extends Fragment {
             }
         });
         return contentView;
+    }
+
+    public Object[] getProductforDetail(Product product, int quantity) {
+        Object[] objArr = new Object[3];
+        objArr[0] = product.getName();
+        objArr[1] = product.getPrice();
+        objArr[2] = product.getImg();
+        return objArr;
     }
 }

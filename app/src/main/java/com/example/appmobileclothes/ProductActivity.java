@@ -2,6 +2,7 @@ package com.example.appmobileclothes;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,10 +12,10 @@ import android.widget.TextView;
 public class ProductActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button bt_sub, bt_add, bt_add2cart;
-    TextView tv_quantity, tv_description_detail, tv_product_name;
+    TextView tv_quantity, tv_description_detail, tv_product_name, tv_price_value;
     ImageView iv_main_pic;
     int quantity = 1;
-    String total;
+    String total, name, price, image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,12 +26,19 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         tv_quantity = findViewById(R.id.tv_quantity);
         tv_description_detail = findViewById(R.id.tv_description_detail);
         tv_product_name = findViewById(R.id.tv_product_name);
+        tv_price_value = findViewById(R.id.tv_price_value);
 
         assignId(bt_sub, R.id.bt_sub);
         assignId(bt_add, R.id.bt_add);
         assignId(bt_add2cart, R.id.bt_add2cart);
 
-        iv_main_pic.setImageResource(R.drawable.ic_info);
+        Object[] objArr = (Object[]) getIntent().getSerializableExtra("data");
+        name = (String) objArr[0];
+        int cost = (int) objArr[1];
+        price = Integer.toString(cost);
+        image = (String) objArr[2];
+        tv_product_name.setText(name);
+        tv_price_value.setText(price + "VND");
     }
 
     @Override
