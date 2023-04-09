@@ -156,7 +156,6 @@ public class CartFragment extends Fragment {
             orderViewModel.addOrder(order, key);
 
             //add Order Detail into firebase
-
             cartViewModel = new ViewModelProvider(getActivity()).get(CartViewModel.class);
             productViewModel = new ViewModelProvider(getActivity()).get(ProductViewModel.class);
             cartViewModel.getCartsLiveData().observe(getViewLifecycleOwner(), carts -> {
@@ -174,9 +173,13 @@ public class CartFragment extends Fragment {
 
                         Product product = ProductViewModel.getProductById(products, cart.getProd_id());
 
+
                         OrderDetail orderDetail = new OrderDetail(detailKey, key, cart.getProd_id(), product.getName(),
                                 cart.getQuantity(), product.getPrice());
                         orderDetailViewModel.addOrderDetail(orderDetail, detailKey);
+
+                        //Delete Cart
+//                        CartViewModel.deleteCart(cart.getId());
                     }
 
                 });
