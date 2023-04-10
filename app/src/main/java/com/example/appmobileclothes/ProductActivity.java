@@ -1,8 +1,5 @@
 package com.example.appmobileclothes;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,6 +7,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.appmobileclothes.Models.Product;
+import com.example.appmobileclothes.Utilities.StorageUtils;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
@@ -20,7 +21,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
     TextView tv_quantity, tv_name, tv_price, tv_total;
     ImageView iv_image;
     int quantity = 1, max, cost, total_price;
-    String total, name, image;
+    String total;
     LinearLayout rollback;
 
     @Override
@@ -40,25 +41,15 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         assignId(bt_add, R.id.bt_add);
 
 
-        Object[] objArr = (Object[]) getIntent().getSerializableExtra("data");
-        name = (String) objArr[0];
-        cost = (int) objArr[1];
-        image = (String) objArr[2];
-        max = (int) objArr[3];
+        Product product = (Product) getIntent().getSerializableExtra("data");
 
-        tv_name.setText(name);
+        cost = product.getPrice();
+
+        tv_name.setText(product.getName());
         tv_price.setText(Integer.toString(cost));
         tv_total.setText(Integer.toString(cost));
 
-        // Get a reference to the Firebase Storage instance
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-
-// Create a storage reference to the image file
-        StorageReference imageRef = storage.getReference().child("Products/"+image);
-        Picasso picasso = Picasso.get();
-        picasso.setIndicatorsEnabled(true);
-        picasso.load(String.valueOf(imageRef)).fit().centerCrop().into(iv_image);
-
+        StorageUtils.loadStorageImageIntoImageView("product-img", product.getImg(), iv_image);
 
         rollback.setOnClickListener(this);
     }

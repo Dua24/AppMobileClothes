@@ -167,30 +167,6 @@ public class HomeFragment extends Fragment {
         ProductAdapter productAdapter = new ProductAdapter(contentView.getContext());
         mGridView.setAdapter(productAdapter);
 
-        mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ProductViewModel viewModel = new ProductViewModel();
-                LiveData<ArrayList<Product>> productsLiveData = viewModel.getProductsLiveData();
-
-                productsLiveData.observe(getViewLifecycleOwner(), productList -> {
-                    // get the product with the given id
-                    int productId = mGridView.getPositionForView(view); // replace with the id you want to search for
-                    Product product = ProductViewModel.getProductById(productList, productId);
-
-
-                    if (product != null) {
-                        Object[] objArr = getProductforDetail(product);
-                        Intent intent = new Intent(getContext(),ProductActivity.class);
-                        intent.putExtra("data", objArr);
-                        startActivity(intent);
-                    } else {
-
-                    }
-                });
-            }
-        });
-
         //Retrieve products data
         productViewModel = new ViewModelProvider(this).get(ProductViewModel.class);
         productViewModel.getProductsLiveData().observe(getViewLifecycleOwner(), products -> {
@@ -198,15 +174,26 @@ public class HomeFragment extends Fragment {
                 productAdapter.setProducts(products);
             }
         });
-        return contentView;
-    }
 
-    public Object[] getProductforDetail(Product product) {
-        Object[] objArr = new Object[4];
-        objArr[0] = product.getName();
-        objArr[1] = product.getPrice();
-        objArr[2] = product.getImg();
-        objArr[3] = product.getQuantity();
-        return objArr;
+        mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                productViewModel.getProductsLiveData().observe(getViewLifecycleOwner(), productList -> {
+                    // get the product with the given id
+                    int productId = mGridView.getPositionForView(view); // replace with the id you want to search for
+                    Product product = ProductViewModel.getProductById(productList, productId);
+
+
+                    if (product != null) {
+                        Intent intent = new Intent(getContext(),ProductActivity.class);
+                        intent.putExtra("data", product);
+                        startActivity(intent);
+                    }
+                });
+            }
+        });
+
+        return contentView;
     }
 }
