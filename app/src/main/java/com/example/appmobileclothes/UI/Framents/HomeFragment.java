@@ -175,7 +175,7 @@ public class HomeFragment extends Fragment {
         mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String productId = mGridView.getPositionForView(view) + "";
+                String productId = mGridView.getItemIdAtPosition(position) + "";
                 productViewModel.getProductByIdFromDb(productId).observe(getViewLifecycleOwner(), product -> {
                     Intent intent = new Intent(getContext(), ProductActivity.class);
                     intent.putExtra("data", product);
