@@ -151,7 +151,7 @@ public class CartFragment extends Fragment {
 
             OrderViewModel orderViewModel = new OrderViewModel();
             String key = orderViewModel.getOrderKey();
-            Order order = new Order(key, strDate, "Multiverse", user_id, total);
+            Order order = new Order(key, strDate, "Invoice", user_id, total);
 
             orderViewModel.addOrder(order, key);
 

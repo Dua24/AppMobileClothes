@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +23,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     private int categoryId;
     private ProductViewModel productViewModel;
     private ProductAdapter productAdapter;
+    TextView tv_return;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         btn_male.setOnClickListener(this);
         btn_female = findViewById(R.id.btn_female);
         btn_female.setOnClickListener(this);
+        tv_return = findViewById(R.id.tv_return);
 
         pressButton(btn_male);
 
@@ -77,6 +80,13 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         });
 
         searchView.setQuery(productName, false);
+
+        tv_return.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
     }
 
     private void changeBtnColor(@NonNull Button btn) {

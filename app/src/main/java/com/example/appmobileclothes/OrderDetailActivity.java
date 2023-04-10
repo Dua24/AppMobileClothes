@@ -1,6 +1,7 @@
 package com.example.appmobileclothes;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,7 +23,7 @@ public class OrderDetailActivity extends AppCompatActivity {
     OrderDetailViewModel orderDetailViewModel;
     ProductViewModel productViewModel;
     OrderViewModel orderViewModel;
-    TextView tv_date, tv_total;
+    TextView tv_date, tv_total, tv_return;
     String orderId;
 
     @Override
@@ -33,6 +34,8 @@ public class OrderDetailActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler_orderDetail);
         tv_date = findViewById(R.id.tv_date);
         tv_total = findViewById(R.id.tv_total);
+        tv_return = findViewById(R.id.tv_return);
+
 
         OrderDetailAdapter orderDetailAdapter = new OrderDetailAdapter(this);
         recyclerView.setAdapter(orderDetailAdapter);
@@ -64,6 +67,13 @@ public class OrderDetailActivity extends AppCompatActivity {
                 Order order = OrderViewModel.getOrderById(orders, orderId);
                 tv_date.setText(order.getDate());
                 tv_total.setText(order.getTotal());
+            }
+        });
+
+        tv_return.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
             }
         });
     }
