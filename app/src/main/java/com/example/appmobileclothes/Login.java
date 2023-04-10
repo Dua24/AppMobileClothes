@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -21,6 +22,8 @@ public class Login extends AppCompatActivity {
 Button btnLogin;
 TextView register,email,password;
 
+
+DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Users");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +33,7 @@ TextView register,email,password;
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
         btnLogin = findViewById(R.id.loginButton);
-        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Users");
+        SharedPreferences mPreferences= getSharedPreferences("isLoggin",MODE_PRIVATE);
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -48,6 +51,14 @@ TextView register,email,password;
                                             intent.putExtra("id",user.getId());
                                             intent.putExtra("username",user.getName());
                                             intent.putExtra("email",user.getEmail());
+
+                                            //save ref login
+                                            SharedPreferences.Editor editor = mPreferences.edit();
+                                            editor.putBoolean("isLogged",true);
+                                            editor.putString("email",email.getText().toString());
+                                            editor.putString("password",password.getText().toString());
+                                            editor.apply();
+
                                             startActivity(intent);
                                             return;
                                         }else{
@@ -55,28 +66,22 @@ TextView register,email,password;
                                             break;
                                         }
                                     }
-
                                 }
                             }
 
                             @Override
                             public void onCancelled(@NonNull DatabaseError error) {
-
                             }
                         });
                     }else{
                         Toast.makeText(Login.this,"Minimum password length of 6 characters required",Toast.LENGTH_LONG).show();
-
                     }
-
                 } else {
                     Toast.makeText(Login.this,"Invalid email",Toast.LENGTH_LONG).show();
                 }
-
-
-
             }
         });
+
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,4 +90,6 @@ TextView register,email,password;
             }
         });
     }
+
+
 }

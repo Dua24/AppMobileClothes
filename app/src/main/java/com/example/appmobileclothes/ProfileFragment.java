@@ -1,6 +1,8 @@
 package com.example.appmobileclothes;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -27,6 +29,7 @@ import com.google.firebase.database.ValueEventListener;
  * create an instance of this fragment.
  */
 public class ProfileFragment extends Fragment {
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -83,6 +86,9 @@ public class ProfileFragment extends Fragment {
         editUsername = view.findViewById(R.id.editTextTextPersonName4);
         logoutBtn = view.findViewById(R.id.button6);
         saveInfo = view.findViewById(R.id.save);
+
+        SharedPreferences mPreferences= getActivity().getSharedPreferences("isLoggin", Context.MODE_PRIVATE);
+
         String id;
         Bundle args = getArguments();
         if (args != null) {
@@ -97,6 +103,11 @@ public class ProfileFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(getContext(), Login.class);
+                    
+                    // clear preferences
+                    SharedPreferences.Editor editor = mPreferences.edit();
+                    editor.clear();
+                    editor.apply();
                     startActivity(intent);
                 }
             });
