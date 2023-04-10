@@ -22,13 +22,17 @@ public class ProductViewModel extends ViewModel {
         return productsLiveData;
     }
 
-    public static Product getProductById(ArrayList<Product> productList, int productId) {
+    public static Product getProductByIdFromList(ArrayList<Product> productList, int productId) {
         for (Product product : productList) {
             if (product.getId() == productId) {
                 return product;
             }
         }
         return null;
+    }
+
+    public LiveData<Product> getProductByIdFromDb(String productId) {
+        return firebaseRepository.getFirebaseSingleData("Products/" + productId, Product.class);
     }
 
     // Get products that match the given name and category

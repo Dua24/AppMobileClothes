@@ -42,6 +42,23 @@ public class FirebaseRepository {
         return firebaseData;
     }
 
+    public <T> LiveData<T> getFirebaseSingleData(String nodePath, Class<T> dataType) {
+        MutableLiveData<T> firebaseData = new MutableLiveData<>();
+        dbRef.child(nodePath).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                T data = snapshot.getValue(dataType);
+                firebaseData.setValue(data);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                firebaseData.setValue(null);
+            }
+        });
+        return firebaseData;
+    }
+
     public void deleteFirebaseData(String nodePath, String key) {
         dbRef.child(nodePath).child(key).removeValue();
     }

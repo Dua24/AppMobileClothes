@@ -45,7 +45,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
     public void updateSubTotal() {
         int value = 0;
         for (Cart cart : carts) {
-            Product product = ProductViewModel.getProductById(products, cart.getProd_id());
+            Product product = ProductViewModel.getProductByIdFromList(products, cart.getProd_id());
             value += product.getPrice() * cart.getQuantity();
         }
         subtotal.setValue(value);
@@ -70,7 +70,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
         holder.setId(mCurrent.getId());
 
         if (products.size() > 0) {
-            Product product = ProductViewModel.getProductById(products, mCurrent.getProd_id());
+            Product product = ProductViewModel.getProductByIdFromList(products, mCurrent.getProd_id());
 
             holder.getTv_title().setText(product.getName());
             holder.getTv_price().setText(product.getPrice() + "");

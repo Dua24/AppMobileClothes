@@ -1,9 +1,9 @@
-package com.example.appmobileclothes;
+package com.example.appmobileclothes.Utilities;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Validate {
+public class ValidateUtils {
     private static final String EMAIL_REGEX =
             "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
                     + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
@@ -13,7 +13,7 @@ public class Validate {
         Matcher matcher = EMAIL_PATTERN.matcher(email);
         return matcher.matches();
     }
-    public static boolean isValidInfo(String info){
+    public static boolean isValidLenght(String info){
         return info.length() >= 6;
     }
     public static boolean isValidConfirmPassword(String confirmPass,String pass){

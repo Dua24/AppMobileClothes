@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
                     replaceFragment(new CartFragment());
                     break;
                 case R.id.profile:
-                    replaceFragment(new ProfileFragment());
+                    replaceFragment(new CartFragment.ProfileFragment());
                     break;
                 case R.id.order:
                     replaceFragment(new OrderFragment());

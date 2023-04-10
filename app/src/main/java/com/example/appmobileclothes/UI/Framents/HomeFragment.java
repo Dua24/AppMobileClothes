@@ -12,7 +12,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,8 +29,6 @@ import com.example.appmobileclothes.UI.Adapters.ProductAdapter;
 import com.example.appmobileclothes.ViewModels.BannerViewModel;
 import com.example.appmobileclothes.ViewModels.CategoryViewModel;
 import com.example.appmobileclothes.ViewModels.ProductViewModel;
-
-import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -108,7 +105,7 @@ public class HomeFragment extends Fragment {
             @Override
             public boolean onQueryTextSubmit(String productName) {
                 Intent i = new Intent(getActivity(), SearchActivity.class);
-                i.putExtra("productName",productName);
+                i.putExtra("productName", productName);
                 startActivity(i);
                 return true;
             }
@@ -128,7 +125,7 @@ public class HomeFragment extends Fragment {
         //Retrieve categories data
         categoryViewModel = new ViewModelProvider(this).get(CategoryViewModel.class);
         categoryViewModel.getCategoriesLiveData().observe(getViewLifecycleOwner(), categories -> {
-            if (categories != null){
+            if (categories != null) {
                 categoryAdapter.setCategories(categories);
             }
         });
@@ -178,18 +175,11 @@ public class HomeFragment extends Fragment {
         mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                productViewModel.getProductsLiveData().observe(getViewLifecycleOwner(), productList -> {
-                    // get the product with the given id
-                    int productId = mGridView.getPositionForView(view); // replace with the id you want to search for
-                    Product product = ProductViewModel.getProductById(productList, productId);
-
-
-                    if (product != null) {
-                        Intent intent = new Intent(getContext(),ProductActivity.class);
-                        intent.putExtra("data", product);
-                        startActivity(intent);
-                    }
+                String productId = mGridView.getPositionForView(view) + "";
+                productViewModel.getProductByIdFromDb(productId).observe(getViewLifecycleOwner(), product -> {
+                    Intent intent = new Intent(getContext(), ProductActivity.class);
+                    intent.putExtra("data", product);
+                    startActivity(intent);
                 });
             }
         });

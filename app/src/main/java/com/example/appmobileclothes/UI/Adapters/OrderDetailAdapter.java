@@ -52,7 +52,7 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailViewHold
         OrderDetail mCurrent = orderDetails.get(position);
         holder.setId(mCurrent.getId());
 
-        Product product = ProductViewModel.getProductById(products, mCurrent.getProd_id());
+        Product product = ProductViewModel.getProductByIdFromList(products, mCurrent.getProd_id());
 
         holder.getTv_price().setText(mCurrent.getPrice() + "");
         holder.getTv_quantity().setText(mCurrent.getQuantity() + "");
