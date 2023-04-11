@@ -3,6 +3,7 @@ package com.example.appmobileclothes;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     private ProductViewModel productViewModel;
     private ProductAdapter productAdapter;
     TextView tv_return;
+    GridView gridView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         btn_female = findViewById(R.id.btn_female);
         btn_female.setOnClickListener(this);
         tv_return = findViewById(R.id.tv_return);
+        gridView = findViewById(R.id.gridview_product_search);
 
         pressButton(btn_male);
 
@@ -85,6 +88,18 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onClick(View view) {
                 onBackPressed();
+            }
+        });
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String productId = gridView.getItemIdAtPosition(position) + "";
+                productViewModel.getProductByIdFromDb(productId).observe(SearchActivity.this, product -> {
+                    Intent intent = new Intent(SearchActivity.this, ProductActivity.class);
+                    intent.putExtra("data", product);
+                    startActivity(intent);
+                });
             }
         });
     }

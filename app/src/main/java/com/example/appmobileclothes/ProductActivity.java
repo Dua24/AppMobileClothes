@@ -1,5 +1,6 @@
 package com.example.appmobileclothes;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,7 +10,9 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.appmobileclothes.Models.Order;
 import com.example.appmobileclothes.Models.Product;
+import com.example.appmobileclothes.UI.Framents.CartFragment;
 import com.example.appmobileclothes.Utilities.StorageUtils;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -44,6 +47,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         Product product = (Product) getIntent().getSerializableExtra("data");
 
         cost = product.getPrice();
+        max = product.getQuantity();
 
         tv_name.setText(product.getName());
         tv_price.setText(Integer.toString(cost));
@@ -60,36 +64,28 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.bt_sub: {
                 if (quantity < 2) {
                     quantity = 1;
-                    total_price = cost * quantity;
-                    tv_total.setText(Integer.toString(total_price));
+                    tv_total.setText(totalPrice(quantity));
                     break;
                 } else {
                     quantity -= 1;
+                    tv_total.setText(totalPrice(quantity));
                 }
-                total = Integer.toString(quantity);
-                tv_quantity.setText(total);
-                total_price = cost * quantity;
-                tv_total.setText(Integer.toString(total_price));
                 break;
             }
             case R.id.bt_add: {
                 if (quantity < max) {
                     quantity += 1;
-                    total = Integer.toString(quantity);
-                    tv_quantity.setText(total);
-                    total_price = cost * quantity;
-                    tv_total.setText(Integer.toString(total_price));
+                    tv_total.setText(totalPrice(quantity));
                     break;
                 } else {
                     quantity = max;
-                    total = Integer.toString(quantity);
-                    tv_quantity.setText(total);
-                    total_price = cost * quantity;
-                    tv_total.setText(Integer.toString(total_price));
+                    tv_total.setText(totalPrice(quantity));
                     break;
                 }
             }
             case R.id.bt_add2cart: {
+                Intent intent = new Intent(this, OrderDetailActivity.class);
+                startActivity(intent);
                 break;
             }
             case R.id.rollback: {
@@ -102,5 +98,12 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
     public void assignId(Button btn, int id) {
         btn = findViewById(id);
         btn.setOnClickListener(this);
+    }
+
+    public String totalPrice(int quantity) {
+        total = Integer.toString(quantity);
+        tv_quantity.setText(total);
+        total_price = cost * quantity;
+        return Integer.toString(total_price);
     }
 }
