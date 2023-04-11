@@ -13,7 +13,7 @@ public class InitialActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_handle_references);
+        setContentView(R.layout.activity_initial);
 
         SharedPreferences mPreferences = getSharedPreferences("isLoggin", MODE_PRIVATE);
         Boolean isLogged = mPreferences.getBoolean("isLogged", false);
