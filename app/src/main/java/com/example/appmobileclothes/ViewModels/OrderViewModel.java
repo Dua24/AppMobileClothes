@@ -1,5 +1,7 @@
 package com.example.appmobileclothes.ViewModels;
 
+import android.content.Context;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -21,8 +23,8 @@ public class OrderViewModel extends ViewModel {
         return ordersLiveData;
     }
 
-    public void addOrder(Order data, String key) {
-        firebaseRepository.addFirebaseData("Invoice", data, key);
+    public void addOrder(Order data, String key, Context context, String success, String fail) {
+        firebaseRepository.addFirebaseData("Invoice", data, key, context, success, fail);
     }
 
     public String getOrderKey() {

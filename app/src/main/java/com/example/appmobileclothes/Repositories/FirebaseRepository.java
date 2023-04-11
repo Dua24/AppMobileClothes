@@ -1,11 +1,14 @@
 package com.example.appmobileclothes.Repositories;
 
+import android.content.Context;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.appmobileclothes.Models.Order;
-import com.example.appmobileclothes.Models.OrderDetail;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -67,13 +70,27 @@ public class FirebaseRepository {
         dbRef.child(nodePath).child(key).child(detailPath).setValue(newDetail);
     }
 
-    public String getKey(String nodePath){
+    public String getKey(String nodePath) {
         String key = dbRef.child(nodePath).push().getKey();
         return key;
     }
 
     public <T> void addFirebaseData(String nodePath, T data, String key) {
         dbRef.child(nodePath).child(key).setValue(data);
+    }
+
+    public <T> void addFirebaseData(String nodePath, T data, String key, Context context, String success, String fail) {
+        dbRef.child(nodePath).child(key).setValue(data).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Toast.makeText(context, success, Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(context, fail, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 }

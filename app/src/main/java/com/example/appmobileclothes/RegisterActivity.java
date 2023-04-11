@@ -1,8 +1,5 @@
 package com.example.appmobileclothes;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,17 +7,22 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.appmobileclothes.Models.User;
 import com.example.appmobileclothes.Utilities.ValidateUtils;
+import com.example.appmobileclothes.ViewModels.UserViewModel;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterActivity extends AppCompatActivity {
     Button registerBtn;
-    TextView email,username,password,confirmPass,signIn;
+    TextView email, username, password, confirmPass, signIn;
     private DatabaseReference userRef;
+    String mEmail, mPassword, mUserName, mConfirm;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,43 +34,37 @@ public class RegisterActivity extends AppCompatActivity {
         password = findViewById(R.id.password);
         confirmPass = findViewById(R.id.confirmPassword);
         signIn = findViewById(R.id.signinText);
-        userRef = FirebaseDatabase.getInstance().getReference().child("Users");
+
+        UserViewModel userViewModel = new UserViewModel();
+
+        mEmail = email.getText().toString();
+        mPassword = password.getText().toString();
+        mUserName = username.getText().toString();
+        mConfirm = confirmPass.getText().toString();
 
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ValidateUtils validator = new ValidateUtils();
-                if(email.getText().toString().length()>0 && validator.isValidEmail(email.getText().toString())){
-                    if(validator.isValidLenght(username.getText().toString()) && validator.isValidLenght(password.getText().toString())){
-                        if(confirmPass.getText().toString().length()>0&&validator.isValidConfirmPassword(confirmPass.getText().toString(),password.getText().toString())){
-                            String key=userRef.push().getKey();
-                            User us = new User(key,username.getText().toString(),email.getText().toString(),password.getText().toString());
+                if (mEmail.length() > 0 && validator.isValidEmail(mEmail)) {
+                    if (validator.isValidLenght(mUserName) && validator.isValidLenght(mPassword)) {
+                        if (mConfirm.length() > 0 && validator.isValidConfirmPassword(mConfirm, mPassword)) {
+                            String key = userViewModel.getUserKey();
+                            User us = new User(key, mUserName, mEmail, mPassword);
 
-                            userRef.child(key).setValue(us).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(RegisterActivity.this,"Sign up successfully",Toast.LENGTH_SHORT).show();
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(RegisterActivity.this,"Sign up failed",Toast.LENGTH_LONG).show();
-                                }
-                            });
+                            userViewModel.addUser(us,key, getBaseContext(),"Sign up successfully","Sign up failed");
+
                             Intent intent = new Intent(getBaseContext(), LoginActivity.class);
                             startActivity(intent);
-                        }else{
-                            Toast.makeText(RegisterActivity.this,"Incorrect confirm password",Toast.LENGTH_SHORT).show();
-
+                        } else {
+                            Toast.makeText(RegisterActivity.this, "Incorrect confirm password", Toast.LENGTH_SHORT).show();
                         }
-                    }else{
-                        Toast.makeText(RegisterActivity.this,"Invalid username or password (min_length=6)",Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(RegisterActivity.this, "Invalid username or password (min_length=6)", Toast.LENGTH_SHORT).show();
                     }
-                }else{
-                    Toast.makeText(RegisterActivity.this,"Invalid Email",Toast.LENGTH_SHORT).show();
-
+                } else {
+                    Toast.makeText(RegisterActivity.this, "Invalid Email", Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
 

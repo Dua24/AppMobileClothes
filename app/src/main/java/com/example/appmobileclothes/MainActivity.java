@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.appmobileclothes.UI.Framents.CartFragment;
 import com.example.appmobileclothes.UI.Framents.OrderFragment;
 import com.example.appmobileclothes.UI.Framents.HomeFragment;
+import com.example.appmobileclothes.UI.Framents.ProfileFragment;
 import com.example.appmobileclothes.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
                     replaceFragment(new CartFragment());
                     break;
                 case R.id.profile:
-                    replaceFragment(new CartFragment.ProfileFragment());
+                    replaceFragment(new ProfileFragment());
                     break;
                 case R.id.order:
                     replaceFragment(new OrderFragment());
