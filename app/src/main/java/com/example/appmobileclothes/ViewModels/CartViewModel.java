@@ -1,9 +1,12 @@
 package com.example.appmobileclothes.ViewModels;
 
+import android.content.Context;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.appmobileclothes.Models.Cart;
+import com.example.appmobileclothes.Models.Order;
 import com.example.appmobileclothes.Models.Product;
 import com.example.appmobileclothes.Repositories.FirebaseRepository;
 
@@ -31,6 +34,15 @@ public class CartViewModel extends ViewModel {
         }
         return cartArrayList;
     }
+
+    public void addCart(Cart data, String key, Context context, String success, String fail) {
+        firebaseRepository.addFirebaseData("Carts", data, key, context, success, fail);
+    }
+
+    public String getCartKey() {
+        return firebaseRepository.getKey("Carts");
+    }
+
 
     public static void deleteCart(String id){
         firebaseRepository.deleteFirebaseData("Carts", id);

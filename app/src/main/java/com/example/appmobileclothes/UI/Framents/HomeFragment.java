@@ -19,7 +19,6 @@ import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.example.appmobileclothes.Models.Product;
 import com.example.appmobileclothes.ProductActivity;
 import com.example.appmobileclothes.SearchActivity;
 import com.example.appmobileclothes.UI.Adapters.CategoryAdapter;
@@ -83,6 +82,7 @@ public class HomeFragment extends Fragment {
     private ProductViewModel productViewModel;
     private SearchView searchView;
     private TextView btn_seeAll;
+    String userId;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -179,6 +179,11 @@ public class HomeFragment extends Fragment {
                 productViewModel.getProductByIdFromDb(productId).observe(getViewLifecycleOwner(), product -> {
                     Intent intent = new Intent(getContext(), ProductActivity.class);
                     intent.putExtra("data", product);
+                    Bundle args = getArguments();
+                    if (args != null) {
+                        userId = args.getString("id");
+                    }
+                    intent.putExtra("userId", userId);
                     startActivity(intent);
                 });
             }

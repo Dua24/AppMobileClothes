@@ -9,14 +9,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
-import com.example.appmobileclothes.Models.Order;
+import com.example.appmobileclothes.Models.Cart;
 import com.example.appmobileclothes.Models.Product;
 import com.example.appmobileclothes.UI.Framents.CartFragment;
 import com.example.appmobileclothes.Utilities.StorageUtils;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.squareup.picasso.Picasso;
+import com.example.appmobileclothes.ViewModels.CartViewModel;
 
 public class ProductActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -26,11 +25,13 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
     int quantity = 1, max, cost, total_price;
     String total;
     LinearLayout rollback;
+    CartViewModel cartViewModel;
+    Product product;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_product);
+        setContentView(R.layout.activity_product);
 
         iv_image = findViewById(R.id.iv_image);
         tv_quantity = findViewById(R.id.tv_quantity);
@@ -43,8 +44,9 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         assignId(bt_sub, R.id.bt_sub);
         assignId(bt_add, R.id.bt_add);
 
+        cartViewModel = new ViewModelProvider(this).get(CartViewModel.class);
 
-        Product product = (Product) getIntent().getSerializableExtra("data");
+        product = (Product) getIntent().getSerializableExtra("data");
 
         cost = product.getPrice();
         max = product.getQuantity();
@@ -62,29 +64,33 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.bt_sub: {
-                if (quantity < 2) {
-                    quantity = 1;
-                    tv_total.setText(totalPrice(quantity));
+                if (quantity == 1) {
                     break;
-                } else {
-                    quantity -= 1;
-                    tv_total.setText(totalPrice(quantity));
                 }
+
+                quantity -= 1;
+                tv_total.setText(totalPrice(quantity));
+
                 break;
             }
             case R.id.bt_add: {
-                if (quantity < max) {
-                    quantity += 1;
-                    tv_total.setText(totalPrice(quantity));
-                    break;
-                } else {
-                    quantity = max;
-                    tv_total.setText(totalPrice(quantity));
+                if (quantity == max) {
                     break;
                 }
+
+                quantity += 1;
+                tv_total.setText(totalPrice(quantity));
+
+                break;
             }
             case R.id.bt_add2cart: {
-                Intent intent = new Intent(this, OrderDetailActivity.class);
+//                cartViewModel.getCartsLiveData().observe(getViewLifecycleOwner(), carts->{
+//                    if ()
+//                });
+                String key = cartViewModel.getCartKey();
+                Cart cart = new Cart(key, getIntent().getStringExtra("userId"), product.getId(), quantity);
+                cartViewModel.addCart(cart, key, getBaseContext(), "You have been added this product successfully", "Fail");
+                Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
                 break;
             }
