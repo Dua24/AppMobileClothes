@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -83,6 +82,8 @@ public class CartFragment extends Fragment {
     TextView tv_subtotal, tv_total, tv_shipping;
     String user_id = "";
     LinearLayout linear_checkout, linear_cart;
+    ArrayList<Cart> cartArrayList;
+    ArrayList<Product> productArrayList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -111,9 +112,9 @@ public class CartFragment extends Fragment {
         cartViewModel = new ViewModelProvider(this).get(CartViewModel.class);
         cartViewModel.getCartsLiveData().observe(getViewLifecycleOwner(), carts -> {
             if (carts != null) {
-                ArrayList<Cart> list = CartViewModel.getCartsByUserId(carts, user_id);
-                cartAdapter.setCarts(list);
-                if (list.size() < 1) {
+                cartArrayList = CartViewModel.getCartsByUserId(carts, user_id);
+                cartAdapter.setCarts(cartArrayList);
+                if (cartArrayList.size() < 1) {
                     linear_checkout.setVisibility(View.GONE);
                     linear_cart.setVisibility(View.VISIBLE);
                 }
@@ -124,6 +125,7 @@ public class CartFragment extends Fragment {
         productViewModel = new ViewModelProvider(this).get(ProductViewModel.class);
         productViewModel.getProductsLiveData().observe(getViewLifecycleOwner(), products -> {
             if (products != null) {
+                productArrayList = products;
                 cartAdapter.setProducts(products);
             }
         });
@@ -159,35 +161,19 @@ public class CartFragment extends Fragment {
             orderViewModel.addOrder(order, key, getContext(), "Purchase successfully", "Purchase failed");
 
             //add Order Detail into firebase
-            cartViewModel = new ViewModelProvider(getActivity()).get(CartViewModel.class);
-            productViewModel = new ViewModelProvider(getActivity()).get(ProductViewModel.class);
-            cartViewModel.getCartsLiveData().observe(getViewLifecycleOwner(), carts -> {
-                if (carts == null) {
-                    return;
-                }
-                ArrayList<Cart> list = CartViewModel.getCartsByUserId(carts, user_id);
-                productViewModel.getProductsLiveData().observe(getViewLifecycleOwner(), products -> {
-                    if (products == null) {
-                        return;
-                    }
-                    for (Cart cart : list) {
-                        OrderDetailViewModel orderDetailViewModel = new OrderDetailViewModel();
-                        String detailKey = orderDetailViewModel.getOrderDetailKey();
+            for (Cart cart : cartArrayList) {
+                OrderDetailViewModel orderDetailViewModel = new OrderDetailViewModel();
+                String detailKey = orderDetailViewModel.getOrderDetailKey();
 
-                        Product product = ProductViewModel.getProductByIdFromList(products, cart.getProd_id());
+                Product product = ProductViewModel.getProductByIdFromList(productArrayList, cart.getProd_id());
 
+                OrderDetail orderDetail = new OrderDetail(detailKey, key, cart.getProd_id(), product.getName(),
+                        cart.getQuantity(), product.getPrice());
+                orderDetailViewModel.addOrderDetail(orderDetail, detailKey);
 
-                        OrderDetail orderDetail = new OrderDetail(detailKey, key, cart.getProd_id(), product.getName(),
-                                cart.getQuantity(), product.getPrice());
-                        orderDetailViewModel.addOrderDetail(orderDetail, detailKey);
-
-                        //Delete Cart
-                        CartViewModel.deleteCart(cart.getId());
-                    }
-
-                });
-
-            });
+                //Delete Cart
+                CartViewModel.deleteCart(cart.getId());
+            }
         }
     };
 }
