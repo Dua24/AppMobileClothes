@@ -54,6 +54,7 @@ public class LoginActivity extends AppCompatActivity {
                                         editor.putString("userId", user.getId());
                                         editor.apply();
                                         startActivity(intent);
+                                        finish();
                                         break;
                                     } else {
                                         Toast.makeText(LoginActivity.this, "Incorrect password", Toast.LENGTH_LONG).show();

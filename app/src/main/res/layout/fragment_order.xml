@@ -45,7 +45,8 @@
                 android:layout_gravity="center"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
-                android:src="@drawable/empty_order" />
+                android:src="@drawable/empty_order"
+                android:visibility="gone"/>
         </LinearLayout>
     </LinearLayout>
 

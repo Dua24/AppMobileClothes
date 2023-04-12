@@ -6,8 +6,6 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.appmobileclothes.Models.Cart;
-import com.example.appmobileclothes.Models.Order;
-import com.example.appmobileclothes.Models.Product;
 import com.example.appmobileclothes.Repositories.FirebaseRepository;
 
 import java.util.ArrayList;
@@ -44,11 +42,15 @@ public class CartViewModel extends ViewModel {
     }
 
 
-    public static void deleteCart(String id){
+    public static void deleteCart(String id) {
         firebaseRepository.deleteFirebaseData("Carts", id);
     }
 
-    public static void updateCart(String id, int detail){
-        firebaseRepository.updateFirebaseData("Carts", id, "quantity", detail );
+    public static void updateCart(String id, int detail) {
+        firebaseRepository.updateFirebaseData("Carts", id, "quantity", detail);
+    }
+
+    public static void updateCart(String id, int detail, Context context, String success, String fail) {
+        firebaseRepository.updateFirebaseData("Carts", id, "quantity", detail, context, success, fail);
     }
 }

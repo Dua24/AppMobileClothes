@@ -70,6 +70,20 @@ public class FirebaseRepository {
         dbRef.child(nodePath).child(key).child(detailPath).setValue(newDetail);
     }
 
+    public void updateFirebaseData(String nodePath, String key, String detailPath, Object newDetail,Context context, String success,String fail) {
+        dbRef.child(nodePath).child(key).child(detailPath).setValue(newDetail).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Toast.makeText(context, success, Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(context, fail, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     public String getKey(String nodePath) {
         String key = dbRef.child(nodePath).push().getKey();
         return key;

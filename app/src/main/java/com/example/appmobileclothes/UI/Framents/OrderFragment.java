@@ -92,8 +92,8 @@ public class OrderFragment extends Fragment {
             if (orders != null) {
                 ArrayList<Order> list = OrderViewModel.getOrdersByUserId(orders, user_id);
                 orderAdapter.setOrders(list);
-                if (list.size() > 0) {
-                    iv_empty.setVisibility(View.GONE);
+                if (list.size() < 1) {
+                    iv_empty.setVisibility(View.VISIBLE);
                 }
             }
         });

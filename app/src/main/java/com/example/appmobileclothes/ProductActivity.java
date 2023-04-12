@@ -13,9 +13,10 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.appmobileclothes.Models.Cart;
 import com.example.appmobileclothes.Models.Product;
-import com.example.appmobileclothes.UI.Framents.CartFragment;
 import com.example.appmobileclothes.Utilities.StorageUtils;
 import com.example.appmobileclothes.ViewModels.CartViewModel;
+
+import java.util.ArrayList;
 
 public class ProductActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -27,6 +28,8 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
     LinearLayout rollback;
     CartViewModel cartViewModel;
     Product product;
+    ArrayList<Cart> cartArrayList;
+    String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +47,15 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         assignId(bt_sub, R.id.bt_sub);
         assignId(bt_add, R.id.bt_add);
 
+        cartArrayList = new ArrayList<Cart>();
+
         cartViewModel = new ViewModelProvider(this).get(CartViewModel.class);
+        cartViewModel.getCartsLiveData().observe(this, carts -> {
+            if (carts != null) {
+                cartArrayList = carts;
+            }
+        });
+        userId = getIntent().getStringExtra("userId");
 
         product = (Product) getIntent().getSerializableExtra("data");
 
@@ -84,14 +95,20 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             }
             case R.id.bt_add2cart: {
-//                cartViewModel.getCartsLiveData().observe(getViewLifecycleOwner(), carts->{
-//                    if ()
-//                });
-                String key = cartViewModel.getCartKey();
-                Cart cart = new Cart(key, getIntent().getStringExtra("userId"), product.getId(), quantity);
-                cartViewModel.addCart(cart, key, getBaseContext(), "You have been added this product successfully", "Fail");
-                Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
+                if (cartArrayList.size() > 0) {
+                    ArrayList<Cart> cartArrayListById = CartViewModel.getCartsByUserId(cartArrayList, userId);
+                    for (Cart cart : cartArrayListById) {
+                        if (cart.getProd_id() == product.getId()) {
+                            int newQuan = quantity + cart.getQuantity();
+                            CartViewModel.updateCart(cart.getId(), newQuan, this, "You have been added this product successfully", "Fail");
+                            Intent intent = new Intent(this, MainActivity.class);
+                            intent.putExtra("id", userId);
+                            startActivity(intent);
+                            return;
+                        }
+                    }
+                }
+                addCart();
                 break;
             }
             case R.id.rollback: {
@@ -111,5 +128,14 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         tv_quantity.setText(total);
         total_price = cost * quantity;
         return Integer.toString(total_price);
+    }
+
+    public void addCart() {
+        String key = cartViewModel.getCartKey();
+        Cart newCart = new Cart(key, userId, product.getId(), quantity);
+        cartViewModel.addCart(newCart, key, getBaseContext(), "You have been added this product successfully", "Fail");
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("id", userId);
+        startActivity(intent);
     }
 }
