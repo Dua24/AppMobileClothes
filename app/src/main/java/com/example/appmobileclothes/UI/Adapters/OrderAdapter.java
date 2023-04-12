@@ -21,8 +21,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderViewHolder> {
     private String user_id;
     private final LayoutInflater mInfalter;
 
-    public OrderAdapter(Context context, String user_id) {
-        this.user_id = user_id;
+    public OrderAdapter(Context context) {
         this.orders = new ArrayList<>();
         this.context = context;
         mInfalter = LayoutInflater.from(context);

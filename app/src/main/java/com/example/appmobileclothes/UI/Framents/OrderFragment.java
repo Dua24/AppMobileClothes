@@ -82,7 +82,7 @@ public class OrderFragment extends Fragment {
 
         //RecyclerView for Carts
         RecyclerView recyclerView = contentView.findViewById(R.id.recycler_order);
-        OrderAdapter orderAdapter = new OrderAdapter(contentView.getContext(), user_id);
+        OrderAdapter orderAdapter = new OrderAdapter(contentView.getContext());
         recyclerView.setAdapter(orderAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(contentView.getContext()));
 
