@@ -34,9 +34,12 @@
             android:scrollbars="none" />
 
         <LinearLayout
+            android:id="@+id/linear_cart"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="180dp">
+            android:orientation="vertical"
+            android:gravity="center"
+            android:visibility="gone">
 
             <ImageView
                 android:id="@+id/iv_empty_cart"
@@ -45,8 +48,14 @@
                 android:layout_gravity="center"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
-                android:src="@drawable/empty_cart"
-                android:visibility="visible" />
+                android:src="@drawable/empty_cart" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Please add something into your cart"
+                android:gravity="center"
+                android:textSize="23dp"
+                android:fontFamily="@font/sf_pro_rounded_medium"/>
         </LinearLayout>
 
 
@@ -59,8 +68,7 @@
         android:layout_gravity="bottom"
         android:background="@color/white"
         android:elevation="20dp"
-        android:orientation="vertical"
-        android:visibility="gone">
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"

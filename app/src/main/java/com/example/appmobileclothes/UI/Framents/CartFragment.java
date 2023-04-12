@@ -82,19 +82,19 @@ public class CartFragment extends Fragment {
     Button btn_checkout;
     TextView tv_subtotal, tv_total, tv_shipping;
     String user_id = "";
-    LinearLayout linear_checkout;
+    LinearLayout linear_checkout, linear_cart;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View contentView = inflater.inflate(R.layout.fragment_cart, container, false);
 
-        ImageView iv_empty = contentView.findViewById(R.id.iv_empty_cart);
         btn_checkout = contentView.findViewById(R.id.btn_checkout);
         tv_subtotal = contentView.findViewById(R.id.tv_subtotal);
         tv_total = contentView.findViewById(R.id.tv_total);
         tv_shipping = contentView.findViewById(R.id.tv_shipping);
         linear_checkout = contentView.findViewById(R.id.linear_checkout);
+        linear_cart = contentView.findViewById(R.id.linear_cart);
 
         Bundle args = getArguments();
         if (args != null) {
@@ -113,9 +113,9 @@ public class CartFragment extends Fragment {
             if (carts != null) {
                 ArrayList<Cart> list = CartViewModel.getCartsByUserId(carts, user_id);
                 cartAdapter.setCarts(list);
-                if (list.size() > 0) {
-                    iv_empty.setVisibility(View.GONE);
-                    linear_checkout.setVisibility(View.VISIBLE);
+                if (list.size() < 1) {
+                    linear_checkout.setVisibility(View.GONE);
+                    linear_cart.setVisibility(View.VISIBLE);
                 }
             }
         });

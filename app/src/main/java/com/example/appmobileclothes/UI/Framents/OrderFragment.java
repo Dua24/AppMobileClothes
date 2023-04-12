@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -67,13 +67,13 @@ public class OrderFragment extends Fragment {
 
     OrderViewModel orderViewModel;
     String user_id;
-    ImageView iv_empty;
+    LinearLayout linear_order;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View contentView = inflater.inflate(R.layout.fragment_order, container, false);
-        iv_empty = contentView.findViewById(R.id.iv_empty);
+        linear_order = contentView.findViewById(R.id.linear_order);
 
         Bundle args = getArguments();
         if (args != null) {
@@ -93,7 +93,7 @@ public class OrderFragment extends Fragment {
                 ArrayList<Order> list = OrderViewModel.getOrdersByUserId(orders, user_id);
                 orderAdapter.setOrders(list);
                 if (list.size() < 1) {
-                    iv_empty.setVisibility(View.VISIBLE);
+                    linear_order.setVisibility(View.VISIBLE);
                 }
             }
         });
