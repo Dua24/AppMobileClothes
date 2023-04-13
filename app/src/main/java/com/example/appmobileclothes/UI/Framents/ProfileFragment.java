@@ -1,7 +1,5 @@
 package com.example.appmobileclothes.UI.Framents;
 
-import static androidx.core.app.ActivityCompat.finishAffinity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -82,11 +80,11 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Users");
-        username = view.findViewById(R.id.textView14);
-        email = view.findViewById(R.id.textView15);
+        username = view.findViewById(R.id.tv_username);
+        email = view.findViewById(R.id.tv_useremail);
         editEmail = view.findViewById(R.id.editTextTextPersonName2);
         editUsername = view.findViewById(R.id.editTextTextPersonName4);
-        logoutBtn = view.findViewById(R.id.button6);
+        logoutBtn = view.findViewById(R.id.btn_logout);
         saveInfo = view.findViewById(R.id.save);
 
         SharedPreferences mPreferences = getActivity().getSharedPreferences("isLoggin", Context.MODE_PRIVATE);

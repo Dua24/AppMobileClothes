@@ -10,15 +10,15 @@
         android:id="@+id/rollback"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:padding="10dp">
 
         <TextView
             android:id="@+id/tv_return"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:gravity=""
-            android:background="@drawable/back_svg" />
+            android:background="@drawable/back_svg"
+            android:gravity="" />
     </LinearLayout>
 
     <LinearLayout
@@ -56,9 +56,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
                 android:fontFamily="@font/sf_pro_rounded_bold"
                 android:text="VND"
-                android:layout_marginLeft="5dp"
                 android:textColor="@color/black"
                 android:textSize="23dp" />
         </LinearLayout>
@@ -69,12 +69,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/header"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp">
+        android:gravity="center"
+        android:paddingHorizontal="20dp">
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/iv_image"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="300dp"
             app:riv_corner_radius="15dp" />
 
@@ -85,14 +85,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/picture"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:gravity="center"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/bt_sub"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_gravity="center"
             android:background="@drawable/minus_square_svg"
             android:text="" />
@@ -104,13 +104,13 @@
             android:fontFamily="@font/sf_pro_rounded_bold"
             android:text="1"
             android:textAlignment="center"
-            android:textColor="@color/primary_color"
+            android:textColor="@color/black"
             android:textSize="20dp" />
 
         <Button
             android:id="@+id/bt_add"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_gravity="center"
             android:background="@drawable/add_square_svg"
             android:text="" />
@@ -137,12 +137,13 @@
                 android:text="500.000"
                 android:textColor="@color/black"
                 android:textSize="21dp" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
                 android:fontFamily="@font/sf_pro_rounded_bold"
                 android:text="VND"
-                android:layout_marginLeft="5dp"
                 android:textColor="@color/black"
                 android:textSize="21dp" />
         </LinearLayout>
@@ -158,11 +159,17 @@
 
         <Button
             android:id="@+id/bt_add2cart"
-            android:layout_width="150dp"
-            android:layout_height="60dp"
+            android:layout_width="wrap_content"
+            android:layout_height="53dp"
             android:layout_gravity="center"
             android:background="@drawable/rounded_button"
-            android:text="Add to cart" />
+            android:backgroundTint="@color/primary_color"
+            android:fontFamily="@font/sf_pro_rounded_regular"
+            android:paddingHorizontal="20dp"
+            android:text="Add to cart"
+            android:textAllCaps="false"
+            android:textSize="17dp"
+            app:cornerRadius="20dp" />
     </LinearLayout>
 
 </RelativeLayout>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -15,8 +16,8 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:gravity="center"
-            android:paddingBottom="5dp"
-            android:paddingTop="10dp">
+            android:paddingTop="10dp"
+            android:paddingBottom="5dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -37,8 +38,8 @@
             android:id="@+id/linear_cart"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
             android:gravity="center"
+            android:orientation="vertical"
             android:visibility="gone">
 
             <ImageView
@@ -49,13 +50,14 @@
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
                 android:src="@drawable/empty_cart" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Please add something into your cart"
+                android:fontFamily="@font/sf_pro_rounded_medium"
                 android:gravity="center"
-                android:textSize="23dp"
-                android:fontFamily="@font/sf_pro_rounded_medium"/>
+                android:text="Please add something into your cart"
+                android:textSize="23dp" />
         </LinearLayout>
 
 
@@ -236,25 +238,20 @@
             </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
+        <Button
+            android:id="@+id/btn_checkout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="50dp"
-            android:paddingBottom="10dp">
-
-            <Button
-                android:id="@+id/btn_checkout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/rounded_button"
-                android:letterSpacing="0"
-                android:paddingHorizontal="50dp"
-                android:paddingVertical="2dp"
-                android:text="Checkout"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
-        </LinearLayout>
+            android:layout_height="68dp"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="28dp"
+            android:layout_marginTop="42dp"
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="@color/primary_color"
+            android:fontFamily="@font/sf_pro_rounded_regular"
+            android:text="Checkout"
+            android:textAllCaps="false"
+            android:textSize="20dp"
+            app:cornerRadius="20dp" />
 
     </LinearLayout>
 

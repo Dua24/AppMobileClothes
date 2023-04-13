@@ -103,7 +103,8 @@
             android:backgroundTint="@color/primary_color"
             android:fontFamily="@font/sf_pro_rounded_regular"
             android:text="Register"
-            android:textSize="18sp"
+            android:textAllCaps="false"
+            android:textSize="20dp"
             app:cornerRadius="20dp" />
     </LinearLayout>
 
