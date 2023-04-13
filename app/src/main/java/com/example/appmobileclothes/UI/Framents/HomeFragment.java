@@ -98,6 +98,11 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        Bundle args = getArguments();
+        if (args != null) {
+            userId = args.getString("id");
+        }
+
         searchView = contentView.findViewById(R.id.searchView);
         searchView.clearFocus();
 
@@ -106,6 +111,7 @@ public class HomeFragment extends Fragment {
             public boolean onQueryTextSubmit(String productName) {
                 Intent i = new Intent(getActivity(), SearchActivity.class);
                 i.putExtra("productName", productName);
+                i.putExtra("userId", userId);
                 startActivity(i);
                 return true;
             }
@@ -179,10 +185,6 @@ public class HomeFragment extends Fragment {
                 productViewModel.getProductByIdFromDb(productId).observe(getViewLifecycleOwner(), product -> {
                     Intent intent = new Intent(getContext(), ProductActivity.class);
                     intent.putExtra("data", product);
-                    Bundle args = getArguments();
-                    if (args != null) {
-                        userId = args.getString("id");
-                    }
                     intent.putExtra("userId", userId);
                     startActivity(intent);
                 });

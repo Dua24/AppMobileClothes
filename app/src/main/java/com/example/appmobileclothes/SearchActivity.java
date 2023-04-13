@@ -51,9 +51,8 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         categoryId = intent.getIntExtra("categoryId", 99);
 
         //GridView for products
-        GridView mGridView = findViewById(R.id.gridview_product_search);
         productAdapter = new ProductAdapter(getBaseContext());
-        mGridView.setAdapter(productAdapter);
+        gridView.setAdapter(productAdapter);
 
         //Retrieve products data
         productViewModel = new ViewModelProvider(this).get(ProductViewModel.class);
@@ -98,6 +97,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                 productViewModel.getProductByIdFromDb(productId).observe(SearchActivity.this, product -> {
                     Intent intent = new Intent(SearchActivity.this, ProductActivity.class);
                     intent.putExtra("data", product);
+                    intent.putExtra("userId", getIntent().getStringExtra("userId"));
                     startActivity(intent);
                 });
             }
