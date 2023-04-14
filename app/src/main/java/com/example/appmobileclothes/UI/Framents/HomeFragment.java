@@ -136,6 +136,7 @@ public class HomeFragment extends Fragment {
                 categoryAdapter.setCategories(categories);
             }
         });
+        categoryAdapter.setUserId(userId);
 
         //ViewPager2 for banners
         ViewPager2 mViewPager2 = contentView.findViewById(R.id.viewPager);

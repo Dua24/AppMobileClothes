@@ -17,6 +17,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
     private ArrayList<Category> categories;
     private final LayoutInflater mInfalter;
     private Context context;
+    private String userId;
 
     public CategoryAdapter(Context context) {
         mInfalter = LayoutInflater.from(context);
@@ -26,6 +27,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
 
     public void setCategories(ArrayList<Category> categories){
         this.categories = categories;
+        notifyDataSetChanged();
+    }
+
+    public void setUserId(String userId){
+        this.userId = userId;
         notifyDataSetChanged();
     }
 
@@ -42,6 +48,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
     public void onBindViewHolder(CategoryViewHolder viewHolder, int position) {
         // Get element from your dataset at this position and replace the contents of the view with that element
         Category mCurrent = categories.get(position);
+        viewHolder.setUserId(userId);
         viewHolder.setId(mCurrent.getId());
         viewHolder.getTv_CategoryName().setText(mCurrent.getName());
         StorageUtils.loadStorageImageIntoImageView("category-img", mCurrent.getImg_name(), viewHolder.getIv_Image());

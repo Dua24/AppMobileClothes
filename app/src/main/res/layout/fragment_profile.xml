@@ -66,6 +66,7 @@
                 android:inputType="textPersonName"
                 android:paddingHorizontal="30dp"
                 android:textColor="@color/black"
+                android:enabled="false"
                 android:textColorHighlight="@color/cardview_dark_background" />
 
             <EditText

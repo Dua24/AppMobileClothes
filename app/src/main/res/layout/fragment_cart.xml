@@ -31,8 +31,9 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/cartFragment"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scrollbars="none" />
+            android:layout_height="match_parent"
+            android:scrollbars="none"
+            android:layout_marginBottom="225dp"/>
 
         <LinearLayout
             android:id="@+id/linear_cart"
@@ -244,7 +245,7 @@
             android:layout_height="68dp"
             android:layout_gravity="center"
             android:layout_marginHorizontal="28dp"
-            android:layout_marginTop="42dp"
+            android:layout_marginTop="20dp"
             android:layout_marginBottom="10dp"
             android:backgroundTint="@color/primary_color"
             android:fontFamily="@font/sf_pro_rounded_regular"
