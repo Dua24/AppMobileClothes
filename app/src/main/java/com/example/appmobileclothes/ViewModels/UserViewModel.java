@@ -32,7 +32,7 @@ public class UserViewModel extends ViewModel {
     }
 
     public String getUserKey() {
-        return firebaseRepository.getKey("User");
+        return firebaseRepository.getKey("Users");
     }
 
 }
