@@ -117,6 +117,7 @@ public class CartFragment extends Fragment {
                 if (cartArrayList.size() < 1) {
                     linear_checkout.setVisibility(View.GONE);
                     linear_cart.setVisibility(View.VISIBLE);
+                    recyclerView.setVisibility(View.GONE);
                 }
             }
         });
